@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/quiz.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/galleria.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/tavole.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/calendario.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/iscrizione.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/contatti.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/glossario.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

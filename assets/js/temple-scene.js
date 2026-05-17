@@ -1939,6 +1939,376 @@ function createOfficialAltar(x, z, levels, lights, columnOrder, label) {
 // const firstSurvAltar = createOfficialAltar(0, 12, 2, 2, 'ionic', '1° SORVEGLIANTE');
 // firstSurvAltar.rotation.y = Math.PI;
 // scene.add(firstSurvAltar);
+// ============================================================
+// TOOLTIP INTERATTIVI sui simboli del Tempio
+// Raycasting on mouse move + tap mobile
+// ============================================================
+const TOOLTIP_DATA = {
+  columnJ: {
+    title: 'Colonna Jachin (J)',
+    text: 'Colonna di destra entrando, in marmo bianco. Significa "Egli stabilirà". Sormontata da tre melagrane dischiuse, simbolo di fertilità e numerosità dei Fratelli.'
+  },
+  columnB: {
+    title: 'Colonna Boaz (B)',
+    text: 'Colonna di sinistra entrando, in marmo nero. Significa "In Lui è la Forza". Sormontata dal globo terraqueo, simbolo dell\'universalità della Massoneria.'
+  },
+  ara: {
+    title: 'Ara dei Giuramenti',
+    text: 'Al centro del Tempio, sul tappeto azzurro. Reca il Libro della Legge Sacra aperto, sovrastato dalla Squadra e dal Compasso. Sul lato occidentale: «Libertà — Uguaglianza — Fratellanza».'
+  },
+  trono: {
+    title: 'Trono del Maestro Venerabile',
+    text: 'Seggio dell\'Oriente, in velluto rosso. Sovrastato dall\'Occhio della Provvidenza nel Delta luminoso. Da qui il M.Ven dirige i Lavori.'
+  },
+  delta: {
+    title: 'Delta Luminoso',
+    text: 'Il triangolo equilatero con al centro la lettera G (Geometria, Generazione, Gnosi, Grande Architetto). Sotto: A∴G∴D∴G∴A∴D∴U∴ — Alla Gloria del Grande Architetto Dell\'Universo.'
+  },
+  sole: {
+    title: 'Il Sole',
+    text: 'Sopra il trono dell\'Oriente, a sinistra del Delta. Rappresenta la Luce della Sapienza che illumina i Lavori dall\'alto.'
+  },
+  luna: {
+    title: 'La Luna',
+    text: 'A destra del Delta. Rappresenta la luce riflessa, la veglia notturna, e il principio femminile complementare al Sole.'
+  },
+  quadro: {
+    title: 'Quadro di Loggia',
+    text: 'Steso al centro del Tempio fra i tre candelabri. Raccoglie in un solo sguardo i simboli del Primo Grado: Stella Fiammeggiante, Colonne, Scala di Giacobbe, Sole, Luna, Squadra e Compasso.'
+  },
+  spada: {
+    title: 'Spada Fiammeggiante',
+    text: 'Spada con lama ondulata, impugnata dal Maestro Venerabile durante i rituali iniziatici. Simbolo del fuoco purificatore e dell\'autorità rituale.'
+  },
+  venus: {
+    title: 'Venere (Pulchritudo)',
+    text: 'Statua all\'estrema destra dell\'ingresso. Rappresenta la Bellezza, una delle Tre Luci. Attributi simbolici: rosa, specchio, colomba.'
+  },
+  hercules: {
+    title: 'Ercole (Virtus)',
+    text: 'Statua all\'estrema sinistra dell\'ingresso. Rappresenta la Forza Virile. Attributi: clava nodosa, leontea (pelle del leone), tre pomi delle Esperidi.'
+  },
+  candelabra: {
+    title: 'Candelabro alto',
+    text: 'Uno dei tre alti candelabri disposti a triangolo equilatero attorno al Quadro di Loggia. Reggono le Tre Luci: Sapienza, Forza, Bellezza.'
+  },
+  firstSorv: {
+    title: 'Altare del 1° Sorvegliante',
+    text: 'Tra Colonna B ed Ercole. Due gradini, lume a due luci, colonnina mobile di ordine ionico. Il 1° Sorvegliante siede a Settentrione.'
+  },
+  secondSorv: {
+    title: 'Altare del 2° Sorvegliante',
+    text: 'Tra Colonna J e Venere (qui posizionato a Meridione). Un gradino, lume a una luce, colonnina mobile di ordine corinzio.'
+  },
+  zodiac: {
+    title: 'Colonna Zodiacale',
+    text: 'Una delle 12 colonne perimetrali che recano i segni dello Zodiaco. Disposte in senso antiorario seguendo il ciclo annuale, unite dal cordone rosso a 7 nodi.'
+  }
+};
+
+// Marco le mesh principali con il loro tag tooltip
+function tagForTooltip(obj, key) {
+  if (!obj) return;
+  obj.userData.tooltipKey = key;
+  obj.traverse(child => { child.userData.tooltipKey = key; });
+}
+tagForTooltip(columnJ, 'columnJ');
+tagForTooltip(columnB, 'columnB');
+tagForTooltip(sacredAltarGroup, 'ara');
+tagForTooltip(throneGroup, 'trono');
+tagForTooltip(deltaGroup, 'delta');
+tagForTooltip(sun, 'sole');
+tagForTooltip(moon, 'luna');
+tagForTooltip(quadroDiLoggia, 'quadro');
+tagForTooltip(swordGroup, 'spada');
+tagForTooltip(venus, 'venus');
+tagForTooltip(hercules, 'hercules');
+tagForTooltip(cand1.group, 'candelabra');
+tagForTooltip(cand2.group, 'candelabra');
+tagForTooltip(cand3.group, 'candelabra');
+tagForTooltip(firstSurvAltar, 'firstSorv');
+tagForTooltip(secondSurvAltar, 'secondSorv');
+tagForTooltip(zodiacGroup, 'zodiac');
+
+// === Crea DOM tooltip ===
+const tooltipEl = document.createElement('div');
+tooltipEl.className = 'temple-tooltip';
+tooltipEl.setAttribute('role', 'tooltip');
+tooltipEl.setAttribute('aria-hidden', 'true');
+tooltipEl.innerHTML = '<div class="temple-tooltip__title"></div><div class="temple-tooltip__text"></div>';
+document.body.appendChild(tooltipEl);
+const tooltipTitle = tooltipEl.querySelector('.temple-tooltip__title');
+const tooltipText  = tooltipEl.querySelector('.temple-tooltip__text');
+
+// === Raycaster ===
+const tooltipRaycaster = new THREE.Raycaster();
+const tooltipMouse = new THREE.Vector2(-9999, -9999);
+let currentTooltipKey = null;
+let tooltipHideTimer = null;
+
+function updateTooltipPosition(clientX, clientY) {
+  // Posiziona il tooltip vicino al cursore, con offset
+  const pad = 16;
+  const w = tooltipEl.offsetWidth;
+  const h = tooltipEl.offsetHeight;
+  let x = clientX + pad;
+  let y = clientY + pad;
+  if (x + w > window.innerWidth - 8)  x = clientX - w - pad;
+  if (y + h > window.innerHeight - 8) y = clientY - h - pad;
+  tooltipEl.style.left = Math.max(8, x) + 'px';
+  tooltipEl.style.top  = Math.max(8, y) + 'px';
+}
+
+function showTooltip(key, clientX, clientY) {
+  const data = TOOLTIP_DATA[key];
+  if (!data) return;
+  if (key !== currentTooltipKey) {
+    tooltipTitle.textContent = data.title;
+    tooltipText.textContent  = data.text;
+    currentTooltipKey = key;
+  }
+  tooltipEl.classList.add('show');
+  tooltipEl.setAttribute('aria-hidden', 'false');
+  updateTooltipPosition(clientX, clientY);
+}
+function hideTooltip() {
+  tooltipEl.classList.remove('show');
+  tooltipEl.setAttribute('aria-hidden', 'true');
+  currentTooltipKey = null;
+}
+
+window.addEventListener('mousemove', function(e) {
+  tooltipMouse.x = (e.clientX / window.innerWidth)  * 2 - 1;
+  tooltipMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  // Salviamo le coordinate per il render
+  tooltipEl._lastClientX = e.clientX;
+  tooltipEl._lastClientY = e.clientY;
+});
+
+// Tap mobile: mostro il tooltip al touch e lo nascondo dopo 4 secondi
+window.addEventListener('touchstart', function(e) {
+  if (e.touches && e.touches[0]) {
+    tooltipMouse.x = (e.touches[0].clientX / window.innerWidth)  * 2 - 1;
+    tooltipMouse.y = -(e.touches[0].clientY / window.innerHeight) * 2 + 1;
+    tooltipEl._lastClientX = e.touches[0].clientX;
+    tooltipEl._lastClientY = e.touches[0].clientY;
+    if (tooltipHideTimer) clearTimeout(tooltipHideTimer);
+    tooltipHideTimer = setTimeout(hideTooltip, 4500);
+  }
+}, { passive: true });
+
+// Funzione chiamata ogni frame nel render loop
+function updateTooltipRaycast() {
+  if (tooltipMouse.x < -1 || tooltipMouse.x > 1) {
+    hideTooltip();
+    return;
+  }
+  tooltipRaycaster.setFromCamera(tooltipMouse, camera);
+  // Intersect su tutta la scena ma stop al primo elemento taggato
+  const intersects = tooltipRaycaster.intersectObjects(scene.children, true);
+  for (let i = 0; i < intersects.length; i++) {
+    let obj = intersects[i].object;
+    let depth = 0;
+    while (obj && !obj.userData.tooltipKey && depth < 8) { obj = obj.parent; depth++; }
+    if (obj && obj.userData.tooltipKey) {
+      showTooltip(obj.userData.tooltipKey, tooltipEl._lastClientX || 0, tooltipEl._lastClientY || 0);
+      return;
+    }
+  }
+  hideTooltip();
+}
+// ============================================================
+// MODALITÀ ESPLORAZIONE LIBERA
+// Appare al 95% di scroll. Sospende la camera narrativa, attiva
+// controlli OrbitControls-style basici (drag = ruota, scroll = zoom)
+// ============================================================
+const explore = {
+  active: false,
+  available: false,
+  // Stato camera
+  target: new THREE.Vector3(0, 3, -5),  // punto verso cui ruotare attorno
+  radius: 18,
+  azimuth: 0,     // orizzontale (radianti)
+  polar: Math.PI / 2.4,  // verticale (radianti, ~75° dal verticale)
+  // Input
+  isDragging: false,
+  dragLastX: 0,
+  dragLastY: 0,
+  dragVelocityAz: 0,
+  dragVelocityPol: 0,
+  // Touch
+  pinchStartDist: 0,
+  pinchStartRadius: 18
+};
+
+// === DOM: bottone esplora e bottone esci ===
+const exploreEnterBtn = document.createElement('button');
+exploreEnterBtn.className = 'explore-enter-btn';
+exploreEnterBtn.type = 'button';
+exploreEnterBtn.innerHTML = '<span class="explore-enter-btn__icon" aria-hidden="true">⊕</span><span>Esplora il Tempio liberamente</span>';
+exploreEnterBtn.setAttribute('aria-label', 'Attiva esplorazione libera della scena 3D');
+document.body.appendChild(exploreEnterBtn);
+
+const exploreExitBtn = document.createElement('button');
+exploreExitBtn.className = 'explore-exit-btn';
+exploreExitBtn.type = 'button';
+exploreExitBtn.innerHTML = '<span aria-hidden="true">←</span> Torna al percorso narrativo';
+exploreExitBtn.setAttribute('aria-label', 'Esci dalla modalità esplorazione libera');
+document.body.appendChild(exploreExitBtn);
+
+const exploreHint = document.createElement('div');
+exploreHint.className = 'explore-hint';
+exploreHint.innerHTML = `
+  <span class="explore-hint__icon" aria-hidden="true">⊕</span>
+  Trascina per ruotare · scorri per zoom · doppio click per centrare
+`;
+document.body.appendChild(exploreHint);
+
+function enterExplore() {
+  explore.active = true;
+  document.body.classList.add('explore-active');
+  // Inizializza la posizione orbitale dalla posizione corrente della camera
+  const cam = camera.position;
+  const lookTarget = new THREE.Vector3(0, 4, -10);
+  explore.target.copy(lookTarget);
+  const diff = new THREE.Vector3().subVectors(cam, lookTarget);
+  explore.radius = Math.max(8, Math.min(40, diff.length()));
+  explore.azimuth = Math.atan2(diff.x, diff.z);
+  explore.polar = Math.acos(Math.min(1, Math.max(-1, diff.y / explore.radius)));
+  setTimeout(() => exploreHint.classList.add('show'), 100);
+  setTimeout(() => exploreHint.classList.remove('show'), 6000);
+}
+function exitExplore() {
+  explore.active = false;
+  document.body.classList.remove('explore-active');
+  exploreHint.classList.remove('show');
+  // La camera tornerà alla posizione narrativa al prossimo scroll/update
+}
+exploreEnterBtn.addEventListener('click', enterExplore);
+exploreExitBtn.addEventListener('click', exitExplore);
+
+// === Controlli input ===
+// Mouse drag
+canvas.addEventListener('mousedown', function(e) {
+  if (!explore.active) return;
+  explore.isDragging = true;
+  explore.dragLastX = e.clientX;
+  explore.dragLastY = e.clientY;
+  canvas.style.cursor = 'grabbing';
+});
+window.addEventListener('mousemove', function(e) {
+  if (!explore.active || !explore.isDragging) return;
+  const dx = e.clientX - explore.dragLastX;
+  const dy = e.clientY - explore.dragLastY;
+  explore.dragLastX = e.clientX;
+  explore.dragLastY = e.clientY;
+  explore.azimuth -= dx * 0.005;
+  explore.polar  = Math.max(0.15, Math.min(Math.PI - 0.15, explore.polar - dy * 0.005));
+  explore.dragVelocityAz = -dx * 0.005;
+  explore.dragVelocityPol = -dy * 0.005;
+});
+window.addEventListener('mouseup', function() {
+  if (explore.active) {
+    explore.isDragging = false;
+    canvas.style.cursor = 'grab';
+  }
+});
+
+// Mouse wheel zoom
+canvas.addEventListener('wheel', function(e) {
+  if (!explore.active) return;
+  e.preventDefault();
+  explore.radius = Math.max(6, Math.min(45, explore.radius + e.deltaY * 0.02));
+}, { passive: false });
+
+// Doppio click: ri-centra la camera
+canvas.addEventListener('dblclick', function() {
+  if (!explore.active) return;
+  explore.target.set(0, 4, -10);
+});
+
+// === Touch (mobile) ===
+canvas.addEventListener('touchstart', function(e) {
+  if (!explore.active) return;
+  if (e.touches.length === 1) {
+    explore.isDragging = true;
+    explore.dragLastX = e.touches[0].clientX;
+    explore.dragLastY = e.touches[0].clientY;
+  } else if (e.touches.length === 2) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    explore.pinchStartDist = Math.sqrt(dx * dx + dy * dy);
+    explore.pinchStartRadius = explore.radius;
+    explore.isDragging = false;
+  }
+}, { passive: true });
+canvas.addEventListener('touchmove', function(e) {
+  if (!explore.active) return;
+  if (e.touches.length === 1 && explore.isDragging) {
+    const dx = e.touches[0].clientX - explore.dragLastX;
+    const dy = e.touches[0].clientY - explore.dragLastY;
+    explore.dragLastX = e.touches[0].clientX;
+    explore.dragLastY = e.touches[0].clientY;
+    explore.azimuth -= dx * 0.005;
+    explore.polar  = Math.max(0.15, Math.min(Math.PI - 0.15, explore.polar - dy * 0.005));
+  } else if (e.touches.length === 2 && explore.pinchStartDist > 0) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const ratio = explore.pinchStartDist / dist;
+    explore.radius = Math.max(6, Math.min(45, explore.pinchStartRadius * ratio));
+  }
+}, { passive: true });
+canvas.addEventListener('touchend', function() {
+  if (!explore.active) return;
+  explore.isDragging = false;
+  explore.pinchStartDist = 0;
+});
+
+// === Tastiera (frecce) ===
+window.addEventListener('keydown', function(e) {
+  if (!explore.active) return;
+  const step = 0.08;
+  if (e.key === 'ArrowLeft')  explore.azimuth -= step;
+  if (e.key === 'ArrowRight') explore.azimuth += step;
+  if (e.key === 'ArrowUp')    explore.polar = Math.max(0.15, explore.polar - step);
+  if (e.key === 'ArrowDown')  explore.polar = Math.min(Math.PI - 0.15, explore.polar + step);
+  if (e.key === '+' || e.key === '=') explore.radius = Math.max(6, explore.radius - 1.5);
+  if (e.key === '-' || e.key === '_') explore.radius = Math.min(45, explore.radius + 1.5);
+  if (e.key === 'Escape')     exitExplore();
+});
+
+// Funzione che aggiorna camera durante explore. Chiamata nel render loop
+function updateExploreCamera() {
+  if (!explore.active) return false;
+  // Damping della velocità di drag (effetto inerzia)
+  if (!explore.isDragging) {
+    explore.azimuth += explore.dragVelocityAz;
+    explore.polar  = Math.max(0.15, Math.min(Math.PI - 0.15, explore.polar + explore.dragVelocityPol));
+    explore.dragVelocityAz *= 0.92;
+    explore.dragVelocityPol *= 0.92;
+  }
+  const r = explore.radius;
+  const x = explore.target.x + r * Math.sin(explore.polar) * Math.sin(explore.azimuth);
+  const y = explore.target.y + r * Math.cos(explore.polar);
+  const z = explore.target.z + r * Math.sin(explore.polar) * Math.cos(explore.azimuth);
+  camera.position.set(x, y, z);
+  camera.lookAt(explore.target);
+  camera.fov = 60;
+  camera.updateProjectionMatrix();
+  return true;
+}
+
+// Mostra/nascondi il bottone "Esplora" in base allo scroll
+function updateExploreAvailability() {
+  const wasAvailable = explore.available;
+  explore.available = (targetScrollProgress > 0.93);
+  if (explore.available !== wasAvailable) {
+    exploreEnterBtn.classList.toggle('visible', explore.available && !explore.active);
+  }
+}
+
+
 
 // 2° Sorvegliante - MERIDIONE (lato destro entrando), 1 gradino, lume 1 luce, corinzio
 const secondSurvAltar = createOfficialAltar(12, 0, 1, 1, 'corinthian', '2° SORVEGLIANTE');
@@ -3964,18 +4334,26 @@ function animate() {
   const breathLookX = REDUCED_MOTION ? 0 : Math.sin(elapsed * 0.35) * 0.15;
   const breathLookY = REDUCED_MOTION ? 0 : Math.cos(elapsed * 0.45) * 0.1;
   
-  camera.position.set(
-    cam.pos[0] + breathX,
-    cam.pos[1] + breathY,
-    cam.pos[2]
-  );
-  camera.lookAt(
-    cam.look[0] + breathLookX,
-    cam.look[1] + breathLookY,
-    cam.look[2]
-  );
-  camera.fov = cam.fov;
-  camera.updateProjectionMatrix();
+  // Aggiorno availability del pulsante Esplora
+  updateExploreAvailability();
+
+  // Se in modalità esplorazione, la camera è controllata dall'utente
+  if (explore.active) {
+    updateExploreCamera();
+  } else {
+    camera.position.set(
+      cam.pos[0] + breathX,
+      cam.pos[1] + breathY,
+      cam.pos[2]
+    );
+    camera.lookAt(
+      cam.look[0] + breathLookX,
+      cam.look[1] + breathLookY,
+      cam.look[2]
+    );
+    camera.fov = cam.fov;
+    camera.updateProjectionMatrix();
+  }
   
   // Cielo stellato in rotazione lenta
   stars1.rotation.y = elapsed * 0.003;
@@ -4086,6 +4464,9 @@ function animate() {
   sun.rotation.z = elapsed * 0.1;
   moon.rotation.z = -elapsed * 0.08;
   
+  // Aggiorna tooltip raycasting
+  updateTooltipRaycast();
+
   // Render con bloom personalizzato
   renderWithBloom();
   requestAnimationFrame(animate);

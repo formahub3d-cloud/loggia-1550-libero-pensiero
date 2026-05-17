@@ -1,0 +1,138 @@
+/* === GLOSSARIO === */
+.glossary-body {
+  background: radial-gradient(ellipse at top, #0a1545 0%, var(--color-bg-deep) 70%);
+}
+
+.glossary-main {
+  max-width: 880px;
+}
+
+.glossary-search-wrap {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto 28px;
+}
+
+.glossary-search {
+  width: 100%;
+  background: rgba(10, 16, 45, 0.5);
+  border: 1px solid rgba(212, 184, 122, 0.4);
+  color: var(--color-gold-light);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 15px;
+  padding: 12px 18px 12px 44px;
+  border-radius: 4px;
+  outline: none;
+  letter-spacing: 0.5px;
+  transition: border-color var(--t-fast) ease;
+}
+
+.glossary-search::placeholder {
+  color: var(--color-gold-warm);
+  opacity: 0.6;
+}
+
+.glossary-search:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 16px rgba(212, 184, 122, 0.2);
+}
+
+.glossary-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gold-warm);
+  font-size: 22px;
+  pointer-events: none;
+}
+
+.glossary-alphabet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 36px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(212, 184, 122, 0.15);
+  border-bottom: 1px solid rgba(212, 184, 122, 0.15);
+}
+
+.glossary-alphabet__letter {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--color-gold-warm);
+  padding: 6px 12px;
+  border-radius: 3px;
+  transition: all var(--t-fast) ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.glossary-alphabet__letter:hover {
+  background: rgba(212, 184, 122, 0.15);
+  color: var(--color-gold-light);
+  transform: translateY(-1px);
+}
+
+.glossary-list {
+  text-align: left;
+}
+
+.glossary-list dt {
+  margin-top: 28px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(212, 184, 122, 0.2);
+}
+
+.glossary-term {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-gold-light);
+  letter-spacing: 1px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.glossary-list dd {
+  margin: 12px 0 0 0;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--color-cream);
+}
+
+.glossary-list dd em {
+  color: var(--color-gold-pale);
+  font-style: italic;
+}
+
+.glossary-list dd strong {
+  color: var(--color-gold-light);
+  font-weight: 600;
+}
+
+.glossary-footer {
+  margin-top: 60px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(212, 184, 122, 0.2);
+  text-align: center;
+}
+
+.glossary-footer p {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-gold-warm);
+  font-size: 13px;
+  margin-bottom: 22px;
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .glossary-term { font-size: 17px; }
+  .glossary-list dd { font-size: 14px; line-height: 1.7; }
+  .glossary-alphabet__letter { font-size: 14px; padding: 4px 9px; }
+}

@@ -1,0 +1,9 @@
+# Loggia 1550 — Libero Pensiero
+# Sito accessibile a tutti i motori di ricerca, niente direttive restrittive
+# (in futuro, se servirà privacy, modificare User-agent e Disallow)
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/sitemap.xml

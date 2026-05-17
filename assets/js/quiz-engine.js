@@ -204,11 +204,14 @@
 
         <div class="quiz-actions">
           <button class="quiz-btn quiz-btn--primary" id="btn-start">⚜ Varca la Soglia</button>
+          <button class="quiz-btn quiz-btn--ghost" id="btn-study" type="button">📖 Modalità Studio</button>
         </div>
         <p class="quiz-narration quiz-narration--whisper" style="margin-top:60px;font-size:11px;letter-spacing:2px;">Realizzato per la Loggia «Libero Pensiero» n. 1550</p>
       </div>
     `;
     document.getElementById('btn-start').addEventListener('click', start);
+    const studyBtn = document.getElementById('btn-study');
+    if (studyBtn) studyBtn.addEventListener('click', enterStudy);
     const tt = document.getElementById('toggle-timed');
     if (tt) {
       tt.addEventListener('change', (e) => {
@@ -448,9 +451,86 @@
   }
 
   // ============================================================
+  // MODALITÀ STUDIO — consultazione libera delle 22 prove
+  // ============================================================
+  let studyIndex = 0;
+
+  function enterStudy() {
+    studyIndex = 0;
+    state.index = -2;  // valore speciale = study mode
+    renderStudy();
+  }
+
+  function exitStudy() {
+    state.index = -1;
+    renderLanding();
+  }
+
+  function renderStudy() {
+    const i = studyIndex;
+    const prova = window.QUIZ_PROVE[i];
+    if (!prova) return;
+    const proLabel = `PROVA ${ROMAN[i + 1]} DI XXII`;
+
+    stageEl.innerHTML = `
+      <div class="quiz-prova quiz-study stage-fade-in">
+        <a class="quiz-back" href="#" id="study-exit">← Torna all'inizio</a>
+        <div class="study-badge">📖 MODALITÀ STUDIO</div>
+        <div class="prova-label">${proLabel}</div>
+        <h2 class="prova-name">${escapeHtml(prova.name)}</h2>
+        <p class="prova-narration">${escapeHtml(prova.narration)}</p>
+        ${(window.QUIZ_ILLUSTRATIONS && window.QUIZ_ILLUSTRATIONS[i]) ? `<div class="prova-illustration">${window.QUIZ_ILLUSTRATIONS[i]}</div>` : ''}
+        ${prova.epigraph ? `<blockquote class="prova-epigraph">${escapeHtml(prova.epigraph)}</blockquote>` : ''}
+        <p class="prova-question">${escapeHtml(prova.question)}</p>
+        <div class="prova-options" role="list" aria-label="Risposte">
+          ${prova.options.map((opt, idx) => `
+            <div class="prova-option ${idx === prova.correct ? 'correct' : ''} study-option">
+              <span class="prova-option__bullet" aria-hidden="true">${'ABCD'[idx]}</span>
+              <span>${escapeHtml(opt)}</span>
+              ${idx === prova.correct ? '<span class="study-correct-mark">✓</span>' : ''}
+            </div>
+          `).join('')}
+        </div>
+        <div class="prova-feedback show correct">
+          <div class="prova-feedback__verdict">Spiegazione</div>
+          ${escapeHtml(prova.explanation)}
+        </div>
+        <div class="study-nav">
+          <button class="quiz-btn quiz-btn--ghost" id="study-prev" type="button" ${i === 0 ? 'disabled' : ''}>◂ Prova precedente</button>
+          <span class="study-counter">${i + 1} / ${TOTAL}</span>
+          <button class="quiz-btn quiz-btn--primary" id="study-next" type="button" ${i === TOTAL - 1 ? 'disabled' : ''}>Prova successiva ▸</button>
+        </div>
+        <div class="study-back-btn-wrap">
+          <button class="quiz-btn quiz-btn--ghost" id="study-end" type="button">⚜ Torna alla soglia</button>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('study-exit').addEventListener('click', function(e) { e.preventDefault(); exitStudy(); });
+    document.getElementById('study-end').addEventListener('click', exitStudy);
+    const prev = document.getElementById('study-prev');
+    const next = document.getElementById('study-next');
+    if (prev && !prev.disabled) prev.addEventListener('click', function() { studyIndex--; renderStudy(); });
+    if (next && !next.disabled) next.addEventListener('click', function() { studyIndex++; renderStudy(); });
+
+    // Progress bar mostra la posizione corrente nelle 22 prove
+    progressEl.style.width = ((i + 1) / TOTAL * 100) + '%';
+    progressLabel.textContent = `Studio · ${ROMAN[i + 1]} di XXII`;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ============================================================
   // GESTIONE TASTIERA
   // ============================================================
   document.addEventListener('keydown', function(e) {
+    // In modalità studio, frecce sinistra/destra navigano tra prove
+    if (state.index === -2) {
+      if (e.key === 'ArrowLeft' && studyIndex > 0) { studyIndex--; renderStudy(); }
+      if (e.key === 'ArrowRight' && studyIndex < TOTAL - 1) { studyIndex++; renderStudy(); }
+      if (e.key === 'Escape') exitStudy();
+      return;
+    }
     if (state.index >= 0 && state.index < TOTAL) {
       const idx = ['1','2','3','4'].indexOf(e.key);
       if (idx > -1) {

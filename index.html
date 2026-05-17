@@ -34,9 +34,20 @@
 
   <!-- Schermata di caricamento (la scena 3D è pesante) -->
   <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Caricamento del Tempio">
-    <div class="loader__symbol" aria-hidden="true">⚜</div>
-    <div class="loader__text">Apertura dei Lavori</div>
-    <div class="loader__bar" aria-hidden="true"></div>
+    <div class="loader__inner">
+      <div class="loader__symbol" aria-hidden="true">⚜</div>
+      <div class="loader__title">LIBERO PENSIERO</div>
+      <div class="loader__subtitle">Loggia n. 1550</div>
+      <div class="loader__divider" aria-hidden="true"></div>
+      <div class="loader__quote" id="loader-quote">
+        <p class="loader__quote-text">Apertura dei Lavori</p>
+        <p class="loader__quote-source">~ Ordo Ab Chao ~</p>
+      </div>
+      <div class="loader__bar" aria-hidden="true">
+        <div class="loader__bar-fill" id="loader-bar-fill"></div>
+      </div>
+      <div class="loader__status" id="loader-status">Apertura del Tempio...</div>
+    </div>
   </div>
 
   <!-- Barra di progresso scroll -->
@@ -194,6 +205,7 @@
       <a href="pages/tavole.html">Tavole</a>
       <a href="pages/calendario.html">Calendario</a>
       <a href="pages/iscrizione.html">Iscrizione</a>
+      <a href="pages/glossario.html">Glossario</a>
       <a href="pages/contatti.html">Contatti</a>
     </nav>
     <div class="site-footer__copy">© Loggia n. 1550 «Libero Pensiero»</div>
@@ -202,24 +214,6 @@
   <!-- Three.js + scena del Tempio -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="assets/js/temple-scene.js" defer></script>
-
-  <!-- Gestione del loader: si nasconde quando la scena ha lanciato 'temple-ready' -->
-  <script>
-    (function() {
-      var loader = document.getElementById('loader');
-      var hidden = false;
-      function hide() {
-        if (hidden) return;
-        hidden = true;
-        // Piccolo delay per evitare flash se il caricamento è istantaneo
-        setTimeout(function() { loader.classList.add('hidden'); }, 250);
-      }
-      window.addEventListener('temple-ready', hide);
-      // Fallback: se per qualche ragione l'evento non arriva, nascondi dopo 6s
-      setTimeout(hide, 6000);
-    })();
-  </script>
-
 
   <!-- ===================================================================
        CONFIGURAZIONE LINK ESTERNI
@@ -247,5 +241,6 @@
   </script>
 
   <script src="assets/js/temple-ambience.js" defer></script>
+  <script src="assets/js/analytics.js" defer></script>
 </body>
 </html>

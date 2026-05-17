@@ -1,0 +1,47 @@
+# ============================================================
+# Backup settimanale del repository
+# Ogni domenica alle 03:00 UTC fa un mirror del repo
+# in un secondo repo "loggia-1550-libero-pensiero-backup"
+# ============================================================
+
+name: Weekly Backup Mirror
+
+on:
+  # Schedula: domenica 03:00 UTC (= domenica 04:00/05:00 italiana)
+  schedule:
+    - cron: '0 3 * * 0'
+  # Permette anche di lanciare il backup manualmente da Actions tab
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # tutta la storia, non solo l'ultimo commit
+
+      - name: Push mirror to backup repo
+        env:
+          BACKUP_TOKEN: ${{ secrets.BACKUP_TOKEN }}
+          BACKUP_REPO: ${{ secrets.BACKUP_REPO }}
+        run: |
+          if [ -z "$BACKUP_TOKEN" ] || [ -z "$BACKUP_REPO" ]; then
+            echo "::error::Mancano i secrets BACKUP_TOKEN o BACKUP_REPO"
+            exit 1
+          fi
+          git config user.name "Backup Bot"
+          git config user.email "backup@loggia-1550.local"
+          git remote add backup "https://x-access-token:${BACKUP_TOKEN}@github.com/${BACKUP_REPO}.git"
+          git push backup --mirror
+
+      - name: Summary
+        run: |
+          echo "## Backup completato" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Mirror eseguito in: \`${{ secrets.BACKUP_REPO }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "Timestamp: $(date -u)" >> $GITHUB_STEP_SUMMARY
