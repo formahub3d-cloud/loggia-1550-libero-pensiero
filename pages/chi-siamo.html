@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050a25">
+  <title>Chi Siamo — Loggia n. 1550 «Libero Pensiero»</title>
+  <meta name="description" content="Storia, valori, struttura e Officianti della Loggia n. 1550 «Libero Pensiero». Un cammino tra simboli e libero pensiero.">
+  <meta property="og:title" content="Chi Siamo — Loggia n. 1550 Libero Pensiero">
+  <meta property="og:description" content="Storia, valori e Officianti della Loggia.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="it_IT">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050a25'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-size='40' fill='%23d4b87a'%3E%E2%9A%9C%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/page.css">
+  <style>
+    /* === CHI SIAMO — stili dedicati === */
+    .about-hero {
+      text-align: center;
+      padding: 30px 0 24px;
+    }
+    .about-symbol {
+      font-size: 56px;
+      color: #d4af37;
+      filter: drop-shadow(0 0 18px rgba(212,175,55,0.35));
+      margin-bottom: 8px;
+    }
+    .about-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      margin: 36px 0;
+    }
+    .about-card {
+      padding: 26px 22px;
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 12px;
+      background: rgba(8, 14, 40, 0.5);
+      backdrop-filter: blur(6px);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .about-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 175, 55, 0.5);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    .about-card__icon {
+      font-size: 28px;
+      color: #d4af37;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .about-card__title {
+      font-family: var(--font-display, Georgia, serif);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e8d8a0;
+      font-size: 14px;
+      margin: 0 0 8px;
+    }
+    .about-card__body {
+      color: rgba(232, 216, 160, 0.78);
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .about-section {
+      margin: 48px 0;
+    }
+    .about-section h2 {
+      font-family: var(--font-display, Georgia, serif);
+      text-align: center;
+      color: #d4af37;
+      font-size: 22px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin: 0 0 6px;
+    }
+    .about-section__divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent);
+      margin: 14px auto 26px;
+    }
+    .about-section p {
+      max-width: 720px;
+      margin: 0 auto 14px;
+      line-height: 1.75;
+      color: rgba(232, 216, 160, 0.82);
+      font-size: 15px;
+    }
+    .officers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin: 28px 0;
+    }
+    .officer {
+      padding: 22px 18px;
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 10px;
+      background: rgba(5, 10, 37, 0.55);
+      text-align: center;
+    }
+    .officer__role {
+      font-size: 11px;
+      color: #d4af37;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .officer__name {
+      font-family: var(--font-display, Georgia, serif);
+      color: rgba(232, 216, 160, 0.95);
+      font-size: 17px;
+      margin: 0 0 6px;
+    }
+    .officer__motto {
+      font-style: italic;
+      font-size: 13px;
+      color: rgba(232, 216, 160, 0.55);
+      margin: 0;
+    }
+    .about-callout {
+      text-align: center;
+      padding: 36px 20px;
+      margin: 48px auto;
+      max-width: 640px;
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(212,175,55,0.06), rgba(212,175,55,0.02));
+    }
+    .about-callout__motto {
+      font-family: var(--font-display, Georgia, serif);
+      color: #d4af37;
+      font-size: 22px;
+      letter-spacing: 0.18em;
+      margin: 0 0 10px;
+    }
+    .about-callout__sub {
+      color: rgba(232, 216, 160, 0.7);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .about-placeholder {
+      padding: 16px 20px;
+      border-left: 3px solid rgba(212, 175, 55, 0.55);
+      background: rgba(212, 175, 55, 0.05);
+      color: rgba(232, 216, 160, 0.7);
+      font-style: italic;
+      margin: 18px auto;
+      max-width: 720px;
+      font-size: 14px;
+      border-radius: 0 8px 8px 0;
+    }
+    .about-cta {
+      text-align: center;
+      margin: 48px 0 24px;
+    }
+  </style>
+</head>
+<body class="page-inner">
+
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+
+  <header class="page-header">
+    <a href="../index.html" class="page-header__logo">⚜ Loggia n. 1550 — Libero Pensiero</a>
+    <nav class="page-header__nav" aria-label="Navigazione principale">
+      <a href="chi-siamo.html" aria-current="page">Chi Siamo</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="galleria.html">Galleria</a>
+      <a href="tavole.html">Tavole</a>
+      <a href="simboli.html">Simboli</a>
+      <a href="glossario.html">Glossario</a>
+      <a href="contatti.html">Contatti</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page-main">
+
+    <div class="about-hero">
+      <div class="about-symbol" aria-hidden="true">⚜</div>
+      <div class="page-eyebrow">~ Loggia n. 1550 ~</div>
+      <h1 class="page-title">LIBERO PENSIERO</h1>
+      <p class="page-lead">Una catena d'unione di Fratelli e Sorelle che lavora a perfezionare l'uomo, a perfezionare il mondo. Salute, Forza, Unione.</p>
+    </div>
+
+    <!-- Valori in card -->
+    <div class="about-cards" role="list">
+
+      <article class="about-card" role="listitem">
+        <span class="about-card__icon" aria-hidden="true">△</span>
+        <h3 class="about-card__title">Libertà</h3>
+        <p class="about-card__body">Libero pensiero, libera ricerca, libera coscienza. Nessuna verità imposta, solo il cammino di chi sceglie di cercare la Luce con i propri occhi.</p>
+      </article>
+
+      <article class="about-card" role="listitem">
+        <span class="about-card__icon" aria-hidden="true">⚖</span>
+        <h3 class="about-card__title">Uguaglianza</h3>
+        <p class="about-card__body">Nel Tempio cadono le distinzioni di classe, di censo, di fede. Sotto la Volta Stellata siamo tutti uomini liberi e di buoni costumi.</p>
+      </article>
+
+      <article class="about-card" role="listitem">
+        <span class="about-card__icon" aria-hidden="true">⚭</span>
+        <h3 class="about-card__title">Fratellanza</h3>
+        <p class="about-card__body">La Catena d'Unione che lega ogni Fratello a tutti gli altri, oltre il tempo e lo spazio, è il vero fondamento dell'edificio massonico.</p>
+      </article>
+
+    </div>
+
+    <!-- Storia -->
+    <section class="about-section">
+      <h2>La Nostra Storia</h2>
+      <div class="about-section__divider" aria-hidden="true"></div>
+      <p>La Loggia n. 1550 «Libero Pensiero» riunisce Fratelli e Sorelle uniti dal desiderio di un cammino iniziatico autentico, fondato sul Rituale del Primo Grado Simbolico e sulle Costituzioni di Anderson.</p>
+      <p>I nostri Lavori si svolgono nel rispetto degli usi e costumi della Libera Muratoria universale, con attenzione particolare alla simbologia operativa, alla pietra grezza che ognuno è chiamato a sgrossare in sé stesso, e alla costruzione di quel Tempio interiore che è il vero scopo dell'Arte Reale.</p>
+      <div class="about-placeholder">⚜ Sezione storica completa in preparazione · saranno aggiunti anno di fondazione, Maestri Venerabili che si sono succeduti, principali Tavole d'Architettura prodotte.</div>
+    </section>
+
+    <!-- Officianti -->
+    <section class="about-section">
+      <h2>Le Luci della Loggia</h2>
+      <div class="about-section__divider" aria-hidden="true"></div>
+      <p>Nel Tempio, ogni Ufficio è una luce: tre sono le Luci grandi, sette le Luci minori. Insieme animano il rito.</p>
+
+      <div class="officers-grid">
+        <div class="officer">
+          <div class="officer__role">~ Oriente ~</div>
+          <h3 class="officer__name">Maestro Venerabile</h3>
+          <p class="officer__motto">Guida i Lavori dall'Oriente</p>
+        </div>
+        <div class="officer">
+          <div class="officer__role">~ Occidente · Sud ~</div>
+          <h3 class="officer__name">1° Sorvegliante</h3>
+          <p class="officer__motto">Custodisce la Colonna dei Compagni</p>
+        </div>
+        <div class="officer">
+          <div class="officer__role">~ Occidente · Nord ~</div>
+          <h3 class="officer__name">2° Sorvegliante</h3>
+          <p class="officer__motto">Custodisce la Colonna degli Apprendisti</p>
+        </div>
+        <div class="officer">
+          <div class="officer__role">~ Oratore ~</div>
+          <h3 class="officer__name">Oratore</h3>
+          <p class="officer__motto">Custode della Legge e delle Costituzioni</p>
+        </div>
+        <div class="officer">
+          <div class="officer__role">~ Segretario ~</div>
+          <h3 class="officer__name">Segretario</h3>
+          <p class="officer__motto">Memoria scritta della Loggia</p>
+        </div>
+        <div class="officer">
+          <div class="officer__role">~ Tesoriere ~</div>
+          <h3 class="officer__name">Tesoriere</h3>
+          <p class="officer__motto">Custode delle metalliche</p>
+        </div>
+        <div class="officer">
+          <div class="officer__role">~ Maestro delle Cerimonie ~</div>
+          <h3 class="officer__name">Maestro delle Cerimonie</h3>
+          <p class="officer__motto">Conduce i passi nel Tempio</p>
+        </div>
+        <div class="officer">
+          <div class="officer__role">~ Copritore Interno ~</div>
+          <h3 class="officer__name">Copritore Interno</h3>
+          <p class="officer__motto">Veglia sulla porta del Tempio</p>
+        </div>
+      </div>
+      <div class="about-placeholder">⚜ I nomi dei singoli Ufficiali del 2026 saranno pubblicati dopo l'Installazione e con il loro consenso.</div>
+    </section>
+
+    <!-- Lavori -->
+    <section class="about-section">
+      <h2>I Nostri Lavori</h2>
+      <div class="about-section__divider" aria-hidden="true"></div>
+      <p>La Loggia si riunisce in tornata regolare circa due volte al mese. Ogni tornata segue le forme del Rituale: Apertura, Lettura della Tavola Architettonica, eventuale Iniziazione o Aumento di Salario, Catena d'Unione, Chiusura dei Lavori.</p>
+      <p>Le date e le tracce dei lavori sono pubblicate riservatamente ai Fratelli; alcuni momenti aperti (conferenze pubbliche, eventi solidali) sono comunicati nella sezione <a href="calendario.html">Calendario</a>.</p>
+    </section>
+
+    <!-- Motto / callout -->
+    <div class="about-callout">
+      <p class="about-callout__motto">~ Ordo Ab Chao ~</p>
+      <p class="about-callout__sub">Dall'Ordine nasce la Luce. Dalla Luce, la Verità.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="about-cta">
+      <a href="iscrizione.html" class="btn btn-primary">Bussare alla Porta</a>
+      <a href="quiz.html" class="btn btn-ghost" style="margin-left: 8px;">⚜ Il Quiz del Vero Massone</a>
+    </div>
+
+  </main>
+
+  <footer class="page-footer">
+    <p>~ Loggia n. 1550 «Libero Pensiero» ~</p>
+    <p class="page-footer__small">All'Oriente di tutti i luoghi e di tutti i tempi · Anno della Vera Luce 6026</p>
+  </footer>
+
+  <script src="../assets/js/page-polish.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050a25">
+  <title>I Simboli del Tempio — Loggia n. 1550 «Libero Pensiero»</title>
+  <meta name="description" content="I 22 simboli del Tempio massonico spiegati: dalle colonne Jachin e Boaz alla Spada Fiammeggiante, dall'Ara dei Giuramenti alla Volta Stellata. Una mappa iniziatica del Rituale del Primo Grado.">
+  <meta property="og:title" content="I Simboli del Tempio — Loggia n. 1550">
+  <meta property="og:description" content="22 simboli iniziatici raccontati uno a uno. Una mappa del Tempio massonico.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="it_IT">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050a25'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-size='40' fill='%23d4b87a'%3E%E2%9A%9C%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/page.css">
+  <style>
+    .symbols-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      margin: 36px 0;
+    }
+    .symbol-card {
+      padding: 26px 22px;
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 12px;
+      background: rgba(8, 14, 40, 0.55);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .symbol-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 175, 55, 0.55);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+    .symbol-card__num {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-family: var(--font-display, Georgia, serif);
+      font-size: 36px;
+      color: rgba(212, 175, 55, 0.18);
+      letter-spacing: -0.02em;
+    }
+    .symbol-card__glyph {
+      font-size: 36px;
+      color: #d4af37;
+      line-height: 1;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .symbol-card__name {
+      font-family: var(--font-display, Georgia, serif);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e8d8a0;
+      font-size: 15px;
+      margin: 0 0 10px;
+    }
+    .symbol-card__body {
+      color: rgba(232, 216, 160, 0.78);
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 0 0 10px;
+    }
+    .symbol-card__tag {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: rgba(212, 175, 55, 0.8);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .symbols-intro {
+      max-width: 720px;
+      margin: 0 auto 12px;
+      text-align: center;
+    }
+    .symbols-toc {
+      display: flex;
+      gap: 8px 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 24px auto 8px;
+      max-width: 720px;
+    }
+    .symbols-toc a {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(212, 175, 55, 0.78);
+      text-decoration: none;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      transition: all 0.2s ease;
+    }
+    .symbols-toc a:hover {
+      color: #d4af37;
+      border-color: rgba(212, 175, 55, 0.6);
+      background: rgba(212, 175, 55, 0.05);
+    }
+  </style>
+</head>
+<body class="page-inner">
+
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+
+  <header class="page-header">
+    <a href="../index.html" class="page-header__logo">⚜ Loggia n. 1550 — Libero Pensiero</a>
+    <nav class="page-header__nav" aria-label="Navigazione principale">
+      <a href="chi-siamo.html">Chi Siamo</a>
+      <a href="galleria.html">Galleria</a>
+      <a href="tavole.html">Tavole</a>
+      <a href="simboli.html" aria-current="page">Simboli</a>
+      <a href="glossario.html">Glossario</a>
+      <a href="contatti.html">Contatti</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page-main">
+    <div class="page-eyebrow">~ Mappa iniziatica ~</div>
+    <h1 class="page-title">I SIMBOLI DEL TEMPIO</h1>
+    <p class="page-lead symbols-intro">Ventidue simboli compongono il linguaggio silenzioso del Tempio massonico. Ognuno è una soglia, una domanda, una risposta. Sono gli stessi che ritrovi camminando nella scena 3D della home.</p>
+
+    <nav class="symbols-toc" aria-label="Vai a una sezione">
+      <a href="#colonne">Colonne</a>
+      <a href="#pavimento">Pavimento</a>
+      <a href="#luminari">Luminari</a>
+      <a href="#ara">Ara &amp; Strumenti</a>
+      <a href="#oriente">Oriente</a>
+      <a href="#volta">Volta Stellata</a>
+    </nav>
+
+    <!-- === COLONNE === -->
+    <section id="colonne" class="about-section">
+      <h2 style="font-family:var(--font-display,Georgia,serif);text-align:center;color:#d4af37;letter-spacing:0.22em;text-transform:uppercase;font-size:18px;margin:36px 0 6px;">~ Le Colonne ~</h2>
+      <div class="symbols-grid">
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">01</span>
+          <span class="symbol-card__glyph" aria-hidden="true">J</span>
+          <h3 class="symbol-card__name">Jachin</h3>
+          <p class="symbol-card__body">Colonna del Sud (a destra entrando), bianca, sormontata dal globo terraqueo. Indica <em>Stabilirà</em>: la fermezza divina sulle opere dell'uomo. Ai suoi piedi siede il Compagno d'Arte.</p>
+          <span class="symbol-card__tag">Stabilità</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">02</span>
+          <span class="symbol-card__glyph" aria-hidden="true">B</span>
+          <h3 class="symbol-card__name">Boaz</h3>
+          <p class="symbol-card__body">Colonna del Nord (a sinistra entrando), nera, sormontata dal globo celeste. Indica <em>In Forza</em>: la forza che sostiene il Tempio interiore. Ai suoi piedi siede l'Apprendista.</p>
+          <span class="symbol-card__tag">Forza</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">03</span>
+          <span class="symbol-card__glyph" aria-hidden="true">♀</span>
+          <h3 class="symbol-card__name">Venere — Bellezza</h3>
+          <p class="symbol-card__body">Erma al fianco di Jachin con rosa, specchio e colomba. Rappresenta la Bellezza che ordina e plasma la materia.</p>
+          <span class="symbol-card__tag">Bellezza</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">04</span>
+          <span class="symbol-card__glyph" aria-hidden="true">♂</span>
+          <h3 class="symbol-card__name">Ercole — Forza eroica</h3>
+          <p class="symbol-card__body">Erma al fianco di Boaz con clava, leontea e pomi delle Esperidi. Rappresenta la forza vincente sulle prove iniziatiche.</p>
+          <span class="symbol-card__tag">Virtù</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- === PAVIMENTO === -->
+    <section id="pavimento" class="about-section">
+      <h2 style="font-family:var(--font-display,Georgia,serif);text-align:center;color:#d4af37;letter-spacing:0.22em;text-transform:uppercase;font-size:18px;margin:36px 0 6px;">~ Il Pavimento a Scacchi ~</h2>
+      <div class="symbols-grid">
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">05</span>
+          <span class="symbol-card__glyph" aria-hidden="true">▦</span>
+          <h3 class="symbol-card__name">Pavimento Mosaico</h3>
+          <p class="symbol-card__body">Scacchi bianchi e neri: dualità di luce/ombra, bene/male, gioia/dolore. Il Massone cammina con consapevolezza su entrambi.</p>
+          <span class="symbol-card__tag">Dualità</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">06</span>
+          <span class="symbol-card__glyph" aria-hidden="true">⬡</span>
+          <h3 class="symbol-card__name">Pietra Grezza</h3>
+          <p class="symbol-card__body">Cubo non lavorato, posato vicino a Boaz. È l'Apprendista stesso: imperfezione che deve essere sgrossata dal lavoro su di sé.</p>
+          <span class="symbol-card__tag">Apprendista</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">07</span>
+          <span class="symbol-card__glyph" aria-hidden="true">⬛</span>
+          <h3 class="symbol-card__name">Pietra Cubica</h3>
+          <p class="symbol-card__body">Cubo levigato, posato vicino a Jachin. È il Compagno d'Arte: la materia perfezionata, pronta per l'edificio.</p>
+          <span class="symbol-card__tag">Compagno</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">08</span>
+          <span class="symbol-card__glyph" aria-hidden="true">▭</span>
+          <h3 class="symbol-card__name">Quadro di Loggia</h3>
+          <p class="symbol-card__body">Tavola dipinta posata al centro durante i Lavori. Contiene tutti i simboli del grado: è l'aula del Tempio in miniatura.</p>
+          <span class="symbol-card__tag">Sintesi</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- === LUMINARI === -->
+    <section id="luminari" class="about-section">
+      <h2 style="font-family:var(--font-display,Georgia,serif);text-align:center;color:#d4af37;letter-spacing:0.22em;text-transform:uppercase;font-size:18px;margin:36px 0 6px;">~ Le Luci ~</h2>
+      <div class="symbols-grid">
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">09</span>
+          <span class="symbol-card__glyph" aria-hidden="true">☉</span>
+          <h3 class="symbol-card__name">Sole</h3>
+          <p class="symbol-card__body">A Mezzogiorno (Sud). Forza attiva, intelligenza che illumina. Veglia sui Lavori da quando si aprono.</p>
+          <span class="symbol-card__tag">Conscio</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">10</span>
+          <span class="symbol-card__glyph" aria-hidden="true">☽</span>
+          <h3 class="symbol-card__name">Luna</h3>
+          <p class="symbol-card__body">A Settentrione (Nord). Forza passiva, intuizione che riflette la luce. Compagna del Sole nella custodia del Tempio.</p>
+          <span class="symbol-card__tag">Inconscio</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">11</span>
+          <span class="symbol-card__glyph" aria-hidden="true">🕯</span>
+          <h3 class="symbol-card__name">Tre Candelabri</h3>
+          <p class="symbol-card__body">Disposti a triangolo attorno all'Ara: rappresentano le tre Grandi Luci (Sole, Luna, Maestro Venerabile) e le virtù di Saggezza, Forza, Bellezza.</p>
+          <span class="symbol-card__tag">Trinità</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">12</span>
+          <span class="symbol-card__glyph" aria-hidden="true">✦</span>
+          <h3 class="symbol-card__name">Candele Perimetrali</h3>
+          <p class="symbol-card__body">Punteggiano le pareti del Tempio. Sono le coscienze dei Fratelli in catena d'unione: ognuno una fiamma, tutti insieme una sola luce.</p>
+          <span class="symbol-card__tag">Catena</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- === ARA & STRUMENTI === -->
+    <section id="ara" class="about-section">
+      <h2 style="font-family:var(--font-display,Georgia,serif);text-align:center;color:#d4af37;letter-spacing:0.22em;text-transform:uppercase;font-size:18px;margin:36px 0 6px;">~ L'Ara e gli Strumenti ~</h2>
+      <div class="symbols-grid">
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">13</span>
+          <span class="symbol-card__glyph" aria-hidden="true">▤</span>
+          <h3 class="symbol-card__name">Ara dei Giuramenti</h3>
+          <p class="symbol-card__body">Altare cubico al centro del Tempio. Reca il Libro della Legge Sacra aperto, Squadra e Compasso sovrapposti. È il cuore rituale dell'aula.</p>
+          <span class="symbol-card__tag">Centro</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">14</span>
+          <span class="symbol-card__glyph" aria-hidden="true">⊿</span>
+          <h3 class="symbol-card__name">Squadra</h3>
+          <p class="symbol-card__body">Strumento del retto agire. Indica la rettitudine morale dell'uomo verso sé stesso e verso gli altri.</p>
+          <span class="symbol-card__tag">Morale</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">15</span>
+          <span class="symbol-card__glyph" aria-hidden="true">𓂀</span>
+          <h3 class="symbol-card__name">Compasso</h3>
+          <p class="symbol-card__body">Strumento della misura. Tiene insieme il cerchio dell'unità: misura il giusto entro cui contenere passioni e azione.</p>
+          <span class="symbol-card__tag">Misura</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">16</span>
+          <span class="symbol-card__glyph" aria-hidden="true">📕</span>
+          <h3 class="symbol-card__name">Libro della Legge Sacra</h3>
+          <p class="symbol-card__body">Aperto sull'Ara per tutta la durata dei Lavori. È la fonte della verità rivelata: ciascuno lo riconosce nella propria tradizione spirituale.</p>
+          <span class="symbol-card__tag">Verità</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">17</span>
+          <span class="symbol-card__glyph" aria-hidden="true">⚔</span>
+          <h3 class="symbol-card__name">Spada Fiammeggiante</h3>
+          <p class="symbol-card__body">Spada con lama ondulata. Empunata dal Maestro Venerabile in alcuni momenti chiave; simboleggia la parola che illumina e taglia, la lingua di fuoco dello Spirito.</p>
+          <span class="symbol-card__tag">Parola</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- === ORIENTE === -->
+    <section id="oriente" class="about-section">
+      <h2 style="font-family:var(--font-display,Georgia,serif);text-align:center;color:#d4af37;letter-spacing:0.22em;text-transform:uppercase;font-size:18px;margin:36px 0 6px;">~ L'Oriente ~</h2>
+      <div class="symbols-grid">
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">18</span>
+          <span class="symbol-card__glyph" aria-hidden="true">△</span>
+          <h3 class="symbol-card__name">Delta Luminoso</h3>
+          <p class="symbol-card__body">Triangolo radioso sospeso sul trono del Maestro Venerabile, con la lettera G (o lo Yod ebraico) al centro. È l'Occhio del Grande Architetto.</p>
+          <span class="symbol-card__tag">G.·.A.·.D.·.U.·.</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">19</span>
+          <span class="symbol-card__glyph" aria-hidden="true">⊙</span>
+          <h3 class="symbol-card__name">Occhio della Provvidenza</h3>
+          <p class="symbol-card__body">Inciso al centro dello schienale del trono. La coscienza che osserva e benedice ogni Lavoro fatto secondo verità.</p>
+          <span class="symbol-card__tag">Coscienza</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">20</span>
+          <span class="symbol-card__glyph" aria-hidden="true">A∴</span>
+          <h3 class="symbol-card__name">A∴G∴D∴G∴A∴D∴U∴</h3>
+          <p class="symbol-card__body">A Gloria Del Grande Architetto Dell'Universo. Acronimo posto sotto il Delta, intestazione di ogni Tavola di Architettura massonica.</p>
+          <span class="symbol-card__tag">Intestazione</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- === VOLTA STELLATA === -->
+    <section id="volta" class="about-section">
+      <h2 style="font-family:var(--font-display,Georgia,serif);text-align:center;color:#d4af37;letter-spacing:0.22em;text-transform:uppercase;font-size:18px;margin:36px 0 6px;">~ La Volta Stellata ~</h2>
+      <div class="symbols-grid">
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">21</span>
+          <span class="symbol-card__glyph" aria-hidden="true">✦</span>
+          <h3 class="symbol-card__name">Zodiaco</h3>
+          <p class="symbol-card__body">Dodici costellazioni disposte sulla volta. Il Tempio è cosmo in miniatura: ogni segno una soglia del cammino dell'anima nell'anno solare.</p>
+          <span class="symbol-card__tag">Cosmo</span>
+        </article>
+
+        <article class="symbol-card">
+          <span class="symbol-card__num">22</span>
+          <span class="symbol-card__glyph" aria-hidden="true">∞</span>
+          <h3 class="symbol-card__name">Cordone con Nodi</h3>
+          <p class="symbol-card__body">Corda con nodi d'amore (lacs d'amour) che corona il Tempio. È la Catena d'Unione dei Fratelli: oltre il tempo e lo spazio, intorno al mondo.</p>
+          <span class="symbol-card__tag">Catena</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="about-callout" style="text-align:center;padding:36px 20px;margin:48px auto;max-width:640px;border:1px solid rgba(212,175,55,0.28);border-radius:14px;background:linear-gradient(180deg,rgba(212,175,55,0.06),rgba(212,175,55,0.02));">
+      <p style="font-family:var(--font-display,Georgia,serif);color:#d4af37;font-size:18px;letter-spacing:0.18em;margin:0 0 14px;">Vuoi mettere alla prova quel che hai imparato?</p>
+      <a href="quiz.html" class="btn btn-primary">⚜ Affronta le 22 Prove</a>
+    </div>
+
+  </main>
+
+  <footer class="page-footer">
+    <p>~ Loggia n. 1550 «Libero Pensiero» ~</p>
+    <p class="page-footer__small">All'Oriente di tutti i luoghi e di tutti i tempi</p>
+  </footer>
+
+  <script src="../assets/js/page-polish.js" defer></script>
+</body>
+</html>

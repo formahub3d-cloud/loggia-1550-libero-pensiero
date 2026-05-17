@@ -26,6 +26,41 @@
 
   <!-- Preload Three.js per ridurre il time-to-render -->
   <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous">
+
+  <!-- Structured data (Schema.org) per anteprima SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Loggia n. 1550 «Libero Pensiero»",
+    "url": "https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/",
+    "logo": "https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/assets/img/og-cover.jpg",
+    "description": "Loggia massonica n. 1550 «Libero Pensiero». Un viaggio nel Tempio: simboli, lavori, ricerca interiore secondo il Rituale del Primo Grado Simbolico.",
+    "sameAs": [],
+    "knowsAbout": [
+      "Massoneria",
+      "Libera Muratoria",
+      "Rituale del Primo Grado",
+      "Simbologia massonica",
+      "Arte Reale"
+    ],
+    "slogan": "Salute, Forza, Unione"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Libero Pensiero — Loggia n. 1550",
+    "url": "https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/",
+    "inLanguage": "it-IT",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/glossario.html?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -201,8 +236,10 @@
     <div class="site-footer__motto">⚜ SALUTE · FORZA · UNIONE ⚜</div>
     <nav class="site-footer__nav" aria-label="Navigazione del sito">
       <a href="index.html">Tempio</a>
+      <a href="pages/chi-siamo.html">Chi Siamo</a>
       <a href="pages/galleria.html">Galleria</a>
       <a href="pages/tavole.html">Tavole</a>
+      <a href="pages/simboli.html">Simboli</a>
       <a href="pages/calendario.html">Calendario</a>
       <a href="pages/iscrizione.html">Iscrizione</a>
       <a href="pages/glossario.html">Glossario</a>
@@ -241,6 +278,8 @@
   </script>
 
   <script src="assets/js/temple-ambience.js" defer></script>
+  <script src="assets/js/temple-day-night.js" defer></script>
   <script src="assets/js/analytics.js" defer></script>
+  <script src="assets/js/page-polish.js" defer></script>
 </body>
 </html>

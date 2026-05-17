@@ -2118,6 +2118,110 @@ function updateTooltipRaycast() {
   hideTooltip();
 }
 // ============================================================
+// EASTER EGG: citazioni segrete al 3° click su elementi chiave
+// ============================================================
+const SECRET_QUOTES = {
+  delta: {
+    title: 'Iscrizione del Delta',
+    text: 'A∴ G∴ D∴ G∴ A∴ D∴ U∴ — Alla Gloria del Grande Architetto Dell\'Universo. Che la Sua Sapienza illumini il nostro Lavoro, la Forza lo renda saldo, la Bellezza lo irradi e lo compia.'
+  },
+  ara: {
+    title: 'Giuramento sull\'Ara',
+    text: '«Io, liberamente e spontaneamente, con assoluta ed irremovibile volontà, alla presenza del Grande Architetto dell\'Universo, prometto e giuro di non palesare giammai i segreti della Libera Massoneria.»'
+  },
+  spada: {
+    title: 'La Spada Fiammeggiante',
+    text: '«La spada che è puntata in direzione del vostro cuore — sempre pronta a punire gli spergiuri — è simbolo del rimorso che vi torturerà se tradirete questa Istituzione.»'
+  },
+  trono: {
+    title: 'L\'Occhio della Provvidenza',
+    text: '«Sotto il baldacchino di velluto rosso, siede colui che dirige i Lavori. Sopra di lui, il Delta Luminoso e l\'Occhio che tutto vede vegliano sul Tempio e sui Fratelli.»'
+  },
+  quadro: {
+    title: 'Quadro di Loggia',
+    text: '«Steso al centro del Tempio, fra i tre alti candelabri, il Quadro raccoglie in un solo sguardo i simboli del Primo Grado. Su di esso si compone il primo alfabeto del Massone.»'
+  },
+  sole: {
+    title: 'Sapienza del Sole',
+    text: '«Il Sole non tramonta mai sui Lavori del Massone. La sua luce è il primo principio: Sapienza che illumina, Sapienza che genera, Sapienza che ordina.»'
+  },
+  luna: {
+    title: 'Luce della Luna',
+    text: '«La Luna riflette nella notte quella stessa luce che il Sole irradia di giorno. Veglia silenziosa sul Tempio durante l\'ora rituale di mezzanotte.»'
+  },
+  columnJ: {
+    title: 'Jachin — Egli stabilirà',
+    text: '«Jachin, la colonna corinzia di destra, dalle tre melagrane dischiuse. Suo significato: stabilità, fecondità dei Fratelli, abbondanza dei semi che sotto la sua protezione germogliano.»'
+  },
+  columnB: {
+    title: 'Boaz — In Lui è la Forza',
+    text: '«Boaz, la colonna dorica di sinistra, sormontata dal globo terraqueo. Suo significato: forza che sostiene il mondo, universalità della Libera Muratoria sparsa per ogni dove.»'
+  }
+};
+
+const easterClicks = {}; // contatore click per ogni key
+
+// Overlay per mostrare citazione segreta
+const secretOverlay = document.createElement('div');
+secretOverlay.className = 'secret-overlay';
+secretOverlay.setAttribute('aria-hidden', 'true');
+secretOverlay.innerHTML = `
+  <div class="secret-overlay__inner">
+    <div class="secret-overlay__symbol">⚜</div>
+    <div class="secret-overlay__title"></div>
+    <div class="secret-overlay__text"></div>
+    <button class="secret-overlay__close" type="button" aria-label="Chiudi">×</button>
+  </div>
+`;
+document.body.appendChild(secretOverlay);
+const secretOverlayTitle = secretOverlay.querySelector('.secret-overlay__title');
+const secretOverlayText  = secretOverlay.querySelector('.secret-overlay__text');
+secretOverlay.querySelector('.secret-overlay__close').addEventListener('click', function() {
+  secretOverlay.classList.remove('show');
+});
+secretOverlay.addEventListener('click', function(e) {
+  if (e.target === secretOverlay) secretOverlay.classList.remove('show');
+});
+
+function showSecretQuote(key) {
+  const q = SECRET_QUOTES[key];
+  if (!q) return;
+  secretOverlayTitle.textContent = q.title;
+  secretOverlayText.textContent = q.text;
+  secretOverlay.classList.add('show');
+  // Auto-hide dopo 12 secondi
+  if (window._secretAutoHide) clearTimeout(window._secretAutoHide);
+  window._secretAutoHide = setTimeout(function() {
+    secretOverlay.classList.remove('show');
+  }, 12000);
+}
+
+// Gestione click su canvas 3D (raycaster già esistente)
+canvas.addEventListener('click', function(e) {
+  if (explore.active) return; // in esplorazione libera, click serve per drag
+  // Calcolo coordinate normalizzate
+  const rect = canvas.getBoundingClientRect();
+  const mx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+  const my = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+  tooltipRaycaster.setFromCamera({x: mx, y: my}, camera);
+  const intersects = tooltipRaycaster.intersectObjects(scene.children, true);
+  for (let i = 0; i < intersects.length; i++) {
+    let obj = intersects[i].object;
+    let depth = 0;
+    while (obj && !obj.userData.tooltipKey && depth < 8) { obj = obj.parent; depth++; }
+    if (obj && obj.userData.tooltipKey && SECRET_QUOTES[obj.userData.tooltipKey]) {
+      const k = obj.userData.tooltipKey;
+      easterClicks[k] = (easterClicks[k] || 0) + 1;
+      if (easterClicks[k] >= 3) {
+        showSecretQuote(k);
+        easterClicks[k] = 0; // reset
+      }
+      return;
+    }
+  }
+});
+
+// ============================================================
 // MODALITÀ ESPLORAZIONE LIBERA
 // Appare al 95% di scroll. Sospende la camera narrativa, attiva
 // controlli OrbitControls-style basici (drag = ruota, scroll = zoom)

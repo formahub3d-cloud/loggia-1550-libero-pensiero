@@ -26,3 +26,4 @@ test-3d-tempio.html
 # Note: il PDF del Rituale resta nel repo solo se sei il proprietario dei diritti
 # Se non lo sei, escludilo decommentando la riga sotto:
 # Ebook-Massoneria-*.pdf
+*.bak

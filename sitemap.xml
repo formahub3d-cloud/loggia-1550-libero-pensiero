@@ -50,4 +50,16 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/chi-siamo.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/pages/simboli.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
 </urlset>

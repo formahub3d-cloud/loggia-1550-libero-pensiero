@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050a25">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex,follow">
+  <title>404 — La porta non si è aperta · Loggia n. 1550</title>
+  <meta name="description" content="La porta che hai bussato non esiste in questo Tempio. Torna al cammino principale.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050a25'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-size='40' fill='%23d4b87a'%3E%E2%9A%9C%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-soft: rgba(212, 175, 55, 0.7);
+      --bg-deep: #050a25;
+      --bg-mid: #0a1545;
+      --paper: #e8d8a0;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      background: radial-gradient(ellipse at center, var(--bg-mid) 0%, var(--bg-deep) 70%);
+      color: var(--paper);
+      font-family: Georgia, 'Times New Roman', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    /* Stelline di sfondo */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .stars::before, .stars::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 23% 17%, rgba(255,250,220,0.85), transparent 60%),
+        radial-gradient(1.5px 1.5px at 71% 33%, rgba(255,250,220,0.65), transparent 60%),
+        radial-gradient(2px 2px at 47% 81%, rgba(255,250,220,0.7), transparent 60%),
+        radial-gradient(1.5px 1.5px at 11% 64%, rgba(255,250,220,0.55), transparent 60%),
+        radial-gradient(2px 2px at 88% 70%, rgba(255,250,220,0.7), transparent 60%),
+        radial-gradient(1.5px 1.5px at 35% 42%, rgba(255,250,220,0.55), transparent 60%);
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+    .stars::after { animation-delay: 2s; opacity: 0.5; }
+    @keyframes twinkle {
+      from { opacity: 0.4; } to { opacity: 0.95; }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 24px;
+      max-width: 640px;
+    }
+
+    /* Numero 404 con due colonne ai lati */
+    .code {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .code__col {
+      width: 18px;
+      height: 110px;
+      background: linear-gradient(180deg, var(--gold) 0%, #8a6a20 100%);
+      border-radius: 3px 3px 0 0;
+      position: relative;
+      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+    }
+    .code__col::before, .code__col::after {
+      content: '';
+      position: absolute;
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(212,175,55,0.5);
+    }
+    .code__col::before {
+      width: 28px; height: 6px;
+      top: -6px; left: -5px;
+      border-radius: 2px;
+    }
+    .code__col::after {
+      width: 28px; height: 8px;
+      bottom: 0; left: -5px;
+      border-radius: 0 0 2px 2px;
+    }
+    .code__num {
+      font-size: clamp(90px, 18vw, 140px);
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      text-shadow: 0 0 40px rgba(212,175,55,0.4);
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    h1 {
+      font-size: clamp(22px, 4.5vw, 30px);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 14px;
+      font-weight: 400;
+    }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      margin-bottom: 12px;
+    }
+    p.lead {
+      font-size: clamp(15px, 2.4vw, 17px);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 22px;
+      color: rgba(232, 216, 160, 0.78);
+    }
+    .quote {
+      max-width: 460px;
+      margin: 28px auto 28px;
+      padding: 18px 22px;
+      border-left: 2px solid var(--gold-soft);
+      font-style: italic;
+      color: rgba(232, 216, 160, 0.7);
+      font-size: 14px;
+      line-height: 1.7;
+      text-align: left;
+    }
+    .quote-source {
+      display: block;
+      margin-top: 8px;
+      font-style: normal;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+    }
+    .actions {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: #2a1d05;
+      border: 1px solid var(--gold);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: #e8c860;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold-soft);
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .footer-motto {
+      position: fixed;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      opacity: 0.6;
+      z-index: 1;
+    }
+
+    @media (max-width: 480px) {
+      .code__col { width: 14px; height: 80px; }
+      .actions { flex-direction: column; align-items: center; }
+      .btn { width: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <div class="code" aria-hidden="true">
+      <span class="code__col"></span>
+      <span class="code__num">404</span>
+      <span class="code__col"></span>
+    </div>
+
+    <div class="eyebrow">~ Errore di soglia ~</div>
+    <h1>La Porta Non Si È Aperta</h1>
+    <p class="lead">La pagina che hai bussato non esiste in questo Tempio. Forse l'indirizzo è errato, o forse non sei ancora pronto a varcarla.</p>
+
+    <blockquote class="quote">
+      «Non aprire la porta a chi non sa la Parola; ma chi bussa con il giusto colpo, sia accolto.»
+      <span class="quote-source">~ dal Rituale ~</span>
+    </blockquote>
+
+    <div class="actions">
+      <a href="/" class="btn btn-primary">⚜ Torna al Tempio</a>
+      <a href="/pages/glossario.html" class="btn btn-ghost">Apri il Glossario</a>
+    </div>
+  </main>
+
+  <div class="footer-motto" aria-hidden="true">Salute · Forza · Unione</div>
+</body>
+</html>

@@ -2,6 +2,7 @@
    LOGGIA 1550 — LIBERO PENSIERO
    Audio ambientale del Tempio — HTML5 Audio (file locale)
    Cerca: assets/audio/temple-ambient.mp3 (o .ogg in fallback)
+   + Visualizer spettrale a spirale dorata
    ============================================================ */
 
 (function() {
@@ -18,9 +19,17 @@
   let audioFailed = false;
   let fadeTimer   = null;
 
+  // === Visualizer state ===
+  let audioCtx     = null;
+  let analyser     = null;
+  let sourceNode   = null;
+  let vizCanvas    = null;
+  let vizCtx       = null;
+  let vizRAF       = null;
+  let vizData      = null;
+
   // ============================================================
   function getBasePath() {
-    // index.html è nella root; le altre pagine sono in /pages/
     const isInPagesDir = window.location.pathname.includes('/pages/');
     return isInPagesDir ? '../' : '';
   }
@@ -48,8 +57,6 @@
     audioEl.volume   = 0;
     audioEl.crossOrigin = 'anonymous';
 
-    // Costruisco la <source> con MP3 + OGG fallback
-    // (in realtà l'elemento Audio supporta solo .src; uso fallback su error)
     audioEl.src = base + 'assets/audio/temple-ambient.mp3';
 
     audioEl.addEventListener('canplaythrough', function() {
@@ -58,7 +65,6 @@
     });
 
     audioEl.addEventListener('error', function() {
-      // Tento il fallback su .ogg
       if (!audioEl.src.endsWith('.ogg')) {
         log('MP3 non trovato, provo .ogg');
         audioEl.src = base + 'assets/audio/temple-ambient.ogg';
@@ -83,6 +89,140 @@
   }
 
   // ============================================================
+  // Web Audio API — Visualizer
+  // ============================================================
+  function setupVisualizer() {
+    if (audioCtx || !audioEl) return;
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) { warn('Web Audio API non supportata'); return; }
+      audioCtx = new Ctx();
+      sourceNode = audioCtx.createMediaElementSource(audioEl);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.85;
+      sourceNode.connect(analyser);
+      analyser.connect(audioCtx.destination);
+      vizData = new Uint8Array(analyser.frequencyBinCount);
+      log('Visualizer pronto (' + analyser.frequencyBinCount + ' bins)');
+    } catch (e) {
+      warn('Setup visualizer fallito:', e.message);
+      audioCtx = null;
+      analyser = null;
+    }
+  }
+
+  function createVizCanvas() {
+    if (vizCanvas || !btn) return;
+    vizCanvas = document.createElement('canvas');
+    vizCanvas.className = 'temple-audio-viz';
+    vizCanvas.width = 96;
+    vizCanvas.height = 96;
+    vizCanvas.setAttribute('aria-hidden', 'true');
+    btn.appendChild(vizCanvas);
+    vizCtx = vizCanvas.getContext('2d');
+  }
+
+  function startVisualizer() {
+    if (!analyser) {
+      setupVisualizer();
+      if (!analyser) return;
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(function(){});
+    }
+    createVizCanvas();
+    if (!vizRAF) {
+      drawVisualizer();
+      log('Visualizer avviato');
+    }
+    if (vizCanvas) vizCanvas.classList.add('is-active');
+  }
+
+  function stopVisualizer() {
+    if (vizRAF) { cancelAnimationFrame(vizRAF); vizRAF = null; }
+    if (vizCanvas) vizCanvas.classList.remove('is-active');
+    // Fade out canvas
+    if (vizCtx) {
+      setTimeout(function() {
+        if (vizCtx && !isPlaying) {
+          vizCtx.clearRect(0, 0, vizCanvas.width, vizCanvas.height);
+        }
+      }, 600);
+    }
+  }
+
+  function drawVisualizer() {
+    vizRAF = requestAnimationFrame(drawVisualizer);
+    if (!analyser || !vizCtx) return;
+    analyser.getByteFrequencyData(vizData);
+
+    const W = vizCanvas.width;
+    const H = vizCanvas.height;
+    const cx = W / 2;
+    const cy = H / 2;
+    const maxR = Math.min(W, H) / 2 - 4;
+
+    vizCtx.clearRect(0, 0, W, H);
+
+    // Energia media bassi/medi/alti
+    const bins = vizData.length;
+    let bass = 0, mid = 0, high = 0;
+    const b1 = Math.floor(bins * 0.15);
+    const b2 = Math.floor(bins * 0.55);
+    for (let i = 0; i < b1; i++) bass += vizData[i];
+    for (let i = b1; i < b2; i++) mid += vizData[i];
+    for (let i = b2; i < bins; i++) high += vizData[i];
+    bass /= (b1 || 1);
+    mid  /= ((b2 - b1) || 1);
+    high /= ((bins - b2) || 1);
+
+    // Cerchio centrale pulsante (bassi)
+    const pulse = 6 + (bass / 255) * 14;
+    const grad = vizCtx.createRadialGradient(cx, cy, 0, cx, cy, pulse * 1.4);
+    grad.addColorStop(0, 'rgba(212, 175, 55, 0.85)');
+    grad.addColorStop(0.6, 'rgba(212, 175, 55, 0.35)');
+    grad.addColorStop(1, 'rgba(212, 175, 55, 0)');
+    vizCtx.fillStyle = grad;
+    vizCtx.beginPath();
+    vizCtx.arc(cx, cy, pulse * 1.4, 0, Math.PI * 2);
+    vizCtx.fill();
+
+    // Spirale dorata di barre radiali (medi/alti)
+    const bars = 48;
+    vizCtx.lineCap = 'round';
+    for (let i = 0; i < bars; i++) {
+      // Sample uniformemente sui bin (scartando il sub-bass piatto)
+      const binIdx = Math.floor((i / bars) * (bins - 6)) + 3;
+      const val = vizData[binIdx] / 255;
+      const angle = (i / bars) * Math.PI * 2 - Math.PI / 2;
+      const innerR = 14 + (bass / 255) * 4;
+      const length = 6 + val * (maxR - innerR - 2);
+
+      const x1 = cx + Math.cos(angle) * innerR;
+      const y1 = cy + Math.sin(angle) * innerR;
+      const x2 = cx + Math.cos(angle) * (innerR + length);
+      const y2 = cy + Math.sin(angle) * (innerR + length);
+
+      const alpha = 0.45 + val * 0.55;
+      vizCtx.strokeStyle = 'rgba(212, 175, 55, ' + alpha.toFixed(2) + ')';
+      vizCtx.lineWidth = 1.6;
+      vizCtx.beginPath();
+      vizCtx.moveTo(x1, y1);
+      vizCtx.lineTo(x2, y2);
+      vizCtx.stroke();
+    }
+
+    // Cerchio esterno sottile reattivo agli alti
+    const ringAlpha = 0.15 + (high / 255) * 0.45;
+    vizCtx.strokeStyle = 'rgba(212, 175, 55, ' + ringAlpha.toFixed(2) + ')';
+    vizCtx.lineWidth = 1;
+    vizCtx.beginPath();
+    vizCtx.arc(cx, cy, maxR - 1, 0, Math.PI * 2);
+    vizCtx.stroke();
+  }
+
+  // ============================================================
   // Fade in/out morbido del volume
   // ============================================================
   function fadeVolume(targetVolume, durationMs, onComplete) {
@@ -103,7 +243,6 @@
     fadeTimer = setInterval(function() {
       step++;
       const t = Math.min(1, step / FADE_STEPS);
-      // smoothstep easing
       const eased = t * t * (3 - 2 * t);
       const v = startVol + delta * eased;
       audioEl.volume = Math.max(0, Math.min(1, v));
@@ -126,6 +265,11 @@
       return;
     }
 
+    // Setup visualizer al primo play (dopo gesture utente)
+    if (!audioCtx) {
+      setupVisualizer();
+    }
+
     const playPromise = audioEl.play();
     if (playPromise && playPromise.catch) {
       playPromise.catch(function(e) {
@@ -139,6 +283,7 @@
     isPlaying = true;
     savePref(true);
     updateButton();
+    startVisualizer();
     log('Play attivato');
   }
 
@@ -155,6 +300,7 @@
     isPlaying = false;
     savePref(false);
     updateButton();
+    stopVisualizer();
     log('Play disattivato');
   }
 
