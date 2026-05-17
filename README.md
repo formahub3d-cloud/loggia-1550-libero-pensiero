@@ -52,11 +52,11 @@ Esperienza 3D immersiva del Tempio massonico per la Loggia n. 1550 «Libero Pens
    git add .
    git commit -m "Initial commit: sito Loggia 1550 con Tempio 3D e Quiz"
    git branch -M main
-   git remote add origin https://github.com/TUO_USERNAME/loggia-1550-libero-pensiero.git
+   git remote add origin https://github.com/formahub3d-cloud/loggia-1550-libero-pensiero.git
    git push -u origin main
    ```
 
-   (Sostituisci `TUO_USERNAME` col tuo username GitHub)
+   (Sostituisci `formahub3d-cloud` col tuo username GitHub)
 
 ### B. Abilitare GitHub Pages
 
@@ -66,7 +66,7 @@ Esperienza 3D immersiva del Tempio massonico per la Loggia n. 1550 «Libero Pens
    - Branch: **main** / Folder: **/ (root)**
    - Salva
 3. Dopo ~1 minuto, GitHub Pages servirà il sito su:
-   `https://TUO_USERNAME.github.io/loggia-1550-libero-pensiero/`
+   `https://formahub3d-cloud.github.io/loggia-1550-libero-pensiero/`
 
 ### C. Collegare dominio SiteGround
 
@@ -77,7 +77,7 @@ Esperienza 3D immersiva del Tempio massonico per la Loggia n. 1550 «Libero Pens
      - `185.199.109.153`
      - `185.199.110.153`
      - `185.199.111.153`
-   - Aggiungi un record **CNAME** per `www` che punta a `TUO_USERNAME.github.io`
+   - Aggiungi un record **CNAME** per `www` che punta a `formahub3d-cloud.github.io`
 3. Sul repo GitHub crea un file `CNAME` (vuoto, solo il dominio dentro):
    ```
    loggia1550.it
