@@ -1,0 +1,214 @@
+/* ============================================================
+   LOGGIA 1550 — LIBERO PENSIERO
+   Reset + tipografia base condivisa
+   ============================================================ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  background: var(--color-bg-deep);
+  color: var(--color-gold);
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+a {
+  color: var(--color-gold-light);
+  text-decoration: none;
+  transition: color var(--t-fast) ease;
+}
+
+a:hover {
+  color: var(--color-gold);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Salta al contenuto (a11y) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg-deep);
+  color: var(--color-gold);
+  padding: 12px 24px;
+  border: var(--border-gold);
+  z-index: 9999;
+  transition: top var(--t-fast) ease;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* Selezione testo */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-bg-deep);
+}
+
+
+/* === AUDIO AMBIENTALE BUTTON (fisso, in basso a destra di ogni pagina) === */
+.temple-audio-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9000;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(10, 16, 45, 0.78);
+  border: 1.5px solid var(--color-gold-warm);
+  color: var(--color-gold-warm);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--t-fast) ease,
+              border-color var(--t-fast) ease,
+              color var(--t-fast) ease,
+              transform var(--t-fast) ease,
+              box-shadow var(--t-fast) ease;
+  opacity: 0.7;
+  padding: 0;
+}
+
+.temple-audio-btn:hover {
+  opacity: 1;
+  border-color: var(--color-gold);
+  color: var(--color-gold-light);
+  transform: scale(1.06);
+  box-shadow: 0 0 18px rgba(212, 184, 122, 0.4);
+}
+
+.temple-audio-btn:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.temple-audio-btn .aud-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.temple-audio-btn .aud-icon--on { display: none; }
+.temple-audio-btn.is-playing .aud-icon--off { display: none; }
+.temple-audio-btn.is-playing .aud-icon--on { display: block; }
+
+.temple-audio-btn.is-playing {
+  opacity: 1;
+  border-color: var(--color-gold-light);
+  color: var(--color-gold-light);
+  animation: audio-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes audio-pulse {
+  0%, 100% { box-shadow: 0 0 14px rgba(212, 184, 122, 0.35); }
+  50%      { box-shadow: 0 0 24px rgba(212, 184, 122, 0.65); }
+}
+
+/* Tooltip che appare a sinistra del bottone */
+.temple-audio-btn__label {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  white-space: nowrap;
+  background: rgba(10, 16, 45, 0.92);
+  border: 1px solid var(--color-gold-warm);
+  padding: 7px 14px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  color: var(--color-gold-warm);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t-fast) ease, transform var(--t-fast) ease;
+  border-radius: 2px;
+  backdrop-filter: blur(6px);
+}
+
+.temple-audio-btn:hover .temple-audio-btn__label,
+.temple-audio-btn:focus-visible .temple-audio-btn__label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 768px) {
+  .temple-audio-btn {
+    bottom: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+  .temple-audio-btn .aud-icon {
+    width: 20px;
+    height: 20px;
+  }
+  /* Su mobile nascondo il tooltip (lo spazio e' poco e si tocca direttamente) */
+  .temple-audio-btn__label { display: none; }
+}
+
+
+.temple-audio-btn.is-loading {
+  animation: audio-pulse 1.0s ease-in-out infinite;
+}
+
+.temple-audio-btn.is-loading .aud-icon {
+  opacity: 0.6;
+  animation: spin-soft 1.5s linear infinite;
+}
+
+@keyframes spin-soft {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+.temple-audio-btn.is-error {
+  border-color: #d44040 !important;
+  color: #e88a8a !important;
+  animation: none !important;
+  box-shadow: 0 0 14px rgba(212, 64, 64, 0.4);
+}
+
+.temple-audio-btn[data-force-tooltip] .temple-audio-btn__label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}

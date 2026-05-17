@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build/temporary
+node_modules/
+*.log
+.cache/
+
+# Sensitive
+.env
+.env.local
+
+# Test files (non per il sito finale)
+test-3d-tempio.html
+
+# Note: il PDF del Rituale resta nel repo solo se sei il proprietario dei diritti
+# Se non lo sei, escludilo decommentando la riga sotto:
+# Ebook-Massoneria-*.pdf

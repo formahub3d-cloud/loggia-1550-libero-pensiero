@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050a25">
+  <meta name="color-scheme" content="dark">
+
+  <title>Libero Pensiero — Loggia n. 1550</title>
+  <meta name="description" content="Loggia n. 1550 «Libero Pensiero». Un viaggio nel Tempio massonico: simboli, lavori, ricerca interiore. Bussa alla porta del cammino iniziatico.">
+
+  <!-- Open Graph / social -->
+  <meta property="og:title" content="Libero Pensiero — Loggia n. 1550">
+  <meta property="og:description" content="Un viaggio nel Tempio massonico. Salute, Forza, Unione.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:image" content="assets/img/og-cover.jpg">
+
+  <!-- Favicon (placeholder SVG col compasso e squadra) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050a25'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-size='40' fill='%23d4b87a'%3E%E2%9A%9C%3C/text%3E%3C/svg%3E">
+
+  <!-- CSS modulare -->
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+
+  <!-- Preload Three.js per ridurre il time-to-render -->
+  <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous">
+</head>
+<body>
+
+  <!-- Salto al contenuto principale (accessibilità) -->
+  <a class="skip-link" href="#hero">Salta al contenuto</a>
+
+  <!-- Schermata di caricamento (la scena 3D è pesante) -->
+  <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Caricamento del Tempio">
+    <div class="loader__symbol" aria-hidden="true">⚜</div>
+    <div class="loader__text">Apertura dei Lavori</div>
+    <div class="loader__bar" aria-hidden="true"></div>
+  </div>
+
+  <!-- Barra di progresso scroll -->
+  <div class="progress-bar" id="progress" aria-hidden="true"></div>
+
+  <!-- Canvas WebGL della scena 3D -->
+  <canvas id="canvas3d" aria-label="Rappresentazione tridimensionale del Tempio massonico" role="img"></canvas>
+
+  <!-- Vignettatura morbida sui bordi -->
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- ================================================================
+       CONTENUTO NARRATIVO — sezioni in scroll sopra la scena 3D
+       ================================================================ -->
+  <main id="main">
+
+
+    <section id="hero" class="scene-section align-center">
+      <div class="section-inner">
+        <h1>LIBERO<br>PENSIERO</h1>
+        <div class="subtitle">~ Loggia n. 1550 ~</div>
+        <a href="pages/quiz.html" class="btn btn-primary" id="cta-quiz-hero" rel="noopener">⚜ Il Quiz del Vero Massone</a>
+      </div>
+    </section>
+
+    <section id="approach" class="scene-section align-left">
+      <div class="section-inner">
+        <div class="eyebrow">~ Prima soglia ~</div>
+        <h2>BUSSA TRE VOLTE</h2>
+        <p class="narration">Davanti a te, le due colonne del Tempio di Salomone. A destra Jachin la corinzia, ornata di melagrane dischiuse. A sinistra Boaz la dorica, sormontata dal globo terraqueo. Custodi del passaggio, Venere ed Ercole vegliano ai lati.</p>
+      </div>
+    </section>
+
+    <section id="altar" class="scene-section align-left">
+      <div class="section-inner">
+        <div class="eyebrow">~ Al centro del Tempio ~</div>
+        <h2>L'ARA DEI GIURAMENTI</h2>
+        <p class="narration">Coperta dal tappeto azzurro, l'Ara reca il Libro della Legge Sacra aperto, sovrastato dalla Squadra e dal Compasso. Sui suoi fianchi: Libertà, Uguaglianza, Fratellanza. La Menorah a sette bracci diffonde la sua luce sacra.</p>
+      </div>
+    </section>
+
+    <section id="quadro" class="scene-section align-center">
+      <div class="section-inner">
+        <div class="eyebrow">~ Il tappeto rituale ~</div>
+        <h2>IL QUADRO DI LOGGIA</h2>
+        <p class="narration">Steso al centro del Tempio, fra i tre candelabri, il Quadro raccoglie in un solo sguardo i simboli del Primo Grado: la Stella Fiammeggiante con la G, le due Colonne J e B, la Scala di Giacobbe, il Sole e la Luna, la Squadra e il Compasso. Su di esso si compone il primo alfabeto del Massone.</p>
+      </div>
+    </section>
+
+    <section id="east" class="scene-section align-right">
+      <div class="section-inner">
+        <div class="eyebrow">~ L'Oriente ~</div>
+        <h2>IL TRONO DEL VENERABILE</h2>
+        <p class="narration">Sotto il baldacchino di velluto rosso con frange dorate, siede colui che dirige i Lavori. Sopra di lui, il Delta Luminoso reca la lettera G, racchiusa nel triangolo sacro. A destra del trono, la statua di Minerva. A sinistra, il Labaro della Loggia.</p>
+      </div>
+    </section>
+
+    <section id="zodiac" class="scene-section align-left">
+      <div class="section-inner">
+        <div class="eyebrow">~ Il cerchio del tempo ~</div>
+        <h2>LE DODICI COLONNE</h2>
+        <p class="narration">Intorno al Tempio, dodici colonne rappresentano lo Zodiaco. In alto corre un cordone rosso che forma sette nodi d'amore, simbolo dell'unione fraterna che lega tutti i Fratelli oltre il tempo e lo spazio.</p>
+      </div>
+    </section>
+
+    <section id="ascend" class="scene-section align-right">
+      <div class="section-inner">
+        <div class="eyebrow">~ Lo sguardo si alza ~</div>
+        <h2>LA VOLTA STELLATA</h2>
+        <p class="narration">Sopra di te, il cielo dipinto del Tempio. Le stelle ricordano che ogni opera si compie sotto la volta dell'universo, e che il Massone lavora sotto lo sguardo del Grande Architetto.</p>
+      </div>
+    </section>
+
+    <section id="explore" class="scene-section align-left">
+      <div class="section-inner">
+        <div class="eyebrow">~ Approfondisci ~</div>
+        <h2>IL TEMPIO E LE SUE OPERE</h2>
+        <div class="cards-grid">
+          <a href="pages/quiz.html" class="card" id="cta-quiz-card" rel="noopener">
+            <span class="card-icon" aria-hidden="true">⚜</span>
+            <h3>Il Quiz del Vero Massone</h3>
+            <p>Ventidue prove iniziatiche per mettere alla prova la conoscenza dei simboli, della storia e dei misteri dell'Arte Reale.</p>
+          </a>
+          <a href="pages/galleria.html" class="card">
+            <span class="card-icon" aria-hidden="true">▦</span>
+            <h3>Galleria</h3>
+            <p>Immagini del Tempio, dei simboli e dei paramenti rituali. Un percorso visivo nella tradizione massonica.</p>
+          </a>
+          <a href="pages/tavole.html" class="card">
+            <span class="card-icon" aria-hidden="true">✒</span>
+            <h3>Le Tavole Massoniche</h3>
+            <p>Scritti, riflessioni e tavole architettoniche dei Fratelli su simboli, valori e cammino iniziatico.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="threshold" class="scene-section align-right">
+      <div class="section-inner">
+        <div class="eyebrow">~ Gli strumenti del cammino ~</div>
+        <h2>IL LAVORO</h2>
+        <p class="narration">Sul pavimento mosaico riposano gli strumenti del Massone. A Settentrione, dove siedono gli Apprendisti: la pietra grezza, il filo a piombo, il mazzuolo, lo scalpello. A Meridione, dove siedono i Compagni: la pietra cubica sormontata dalla piramide.</p>
+      </div>
+    </section>
+
+    <section id="works" class="scene-section align-right">
+      <div class="section-inner">
+        <div class="eyebrow">~ La vita della Loggia ~</div>
+        <h2>I LAVORI DI LOGGIA</h2>
+        <div class="cards-grid">
+          <div class="card">
+            <span class="card-icon" aria-hidden="true">☉</span>
+            <h3>Le Tornate</h3>
+            <p>I Lavori si aprono a Mezzogiorno e si chiudono a Mezzanotte. Ogni Tornata è un momento di studio, riflessione e fratellanza.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon" aria-hidden="true">△</span>
+            <h3>Le Agapi Rituali</h3>
+            <p>I momenti conviviali che rinsaldano i legami fraterni, secondo l'antica tradizione delle due feste di San Giovanni.</p>
+          </div>
+          <a href="pages/calendario.html" class="card">
+            <span class="card-icon" aria-hidden="true">⚒</span>
+            <h3>Calendario delle attività</h3>
+            <p>Le date delle Tornate, delle iniziazioni e degli eventi riservati ai Fratelli della Loggia.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="join" class="scene-section align-center">
+      <div class="section-inner">
+        <div class="eyebrow">~ Bussare alla porta ~</div>
+        <h2>ISCRIZIONE</h2>
+        <p class="narration">La Massoneria non recluta: accoglie chi liberamente bussa. Chi sente il desiderio di intraprendere il cammino iniziatico, mosso da sincera ricerca interiore, può richiedere un colloquio conoscitivo.</p>
+        <a href="pages/iscrizione.html" class="btn btn-primary" style="margin-top:28px;">Richiedi un colloquio</a>
+      </div>
+    </section>
+
+    <section id="end" class="scene-section align-center">
+      <div class="section-inner">
+        <div class="eyebrow">~ Soglia varcata ~</div>
+        <h2>SALUTE · FORZA · UNIONE</h2>
+        <p class="narration">Hai attraversato il Tempio. Che la Luce della Saggezza, la Forza che rende saldi e la Bellezza che tutto compie restino nel tuo cammino.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer minimale (sempre sopra la scena, ma visibile solo a fine pagina) -->
+  <footer class="site-footer">
+    <div class="site-footer__motto">⚜ SALUTE · FORZA · UNIONE ⚜</div>
+    <nav class="site-footer__nav" aria-label="Navigazione del sito">
+      <a href="index.html">Tempio</a>
+      <a href="pages/galleria.html">Galleria</a>
+      <a href="pages/tavole.html">Tavole</a>
+      <a href="pages/calendario.html">Calendario</a>
+      <a href="pages/iscrizione.html">Iscrizione</a>
+      <a href="pages/contatti.html">Contatti</a>
+    </nav>
+    <div class="site-footer__copy">© Loggia n. 1550 «Libero Pensiero»</div>
+  </footer>
+
+  <!-- Three.js + scena del Tempio -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="assets/js/temple-scene.js" defer></script>
+
+  <!-- Gestione del loader: si nasconde quando la scena ha lanciato 'temple-ready' -->
+  <script>
+    (function() {
+      var loader = document.getElementById('loader');
+      var hidden = false;
+      function hide() {
+        if (hidden) return;
+        hidden = true;
+        // Piccolo delay per evitare flash se il caricamento è istantaneo
+        setTimeout(function() { loader.classList.add('hidden'); }, 250);
+      }
+      window.addEventListener('temple-ready', hide);
+      // Fallback: se per qualche ragione l'evento non arriva, nascondi dopo 6s
+      setTimeout(hide, 6000);
+    })();
+  </script>
+
+
+  <!-- ===================================================================
+       CONFIGURAZIONE LINK ESTERNI
+       Inserisci qui i link reali (es. Quiz del Vero Massone).
+       Il bottone hero e la card "Il Quiz del Vero Massone" verranno
+       aggiornati automaticamente quando il valore non è vuoto.
+       =================================================================== -->
+  <script>
+    window.SITE_CONFIG = {
+      // Link al Quiz del Vero Massone (lascia vuoto per disabilitare)
+      quizUrl: ""   // ← sostituisci con l'URL reale del Quiz
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+      var url = window.SITE_CONFIG.quizUrl;
+      if (!url) return;
+      ['cta-quiz-hero', 'cta-quiz-card'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) {
+          el.setAttribute('href', url);
+          el.setAttribute('target', '_blank');
+          el.setAttribute('rel', 'noopener noreferrer');
+        }
+      });
+    });
+  </script>
+
+  <script src="assets/js/temple-ambience.js" defer></script>
+</body>
+</html>

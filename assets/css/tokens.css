@@ -1,0 +1,77 @@
+/* ============================================================
+   LOGGIA 1550 — LIBERO PENSIERO
+   Design tokens condivisi tra tutte le pagine del sito
+   ============================================================ */
+
+:root {
+  /* --- Palette --- */
+  --color-bg-deep:      #050a25;   /* Blu notte profondo (fondo) */
+  --color-bg-mid:       #0a1545;   /* Blu volta */
+  --color-gold:         #d4b87a;   /* Oro principale */
+  --color-gold-light:   #e8cf94;   /* Oro chiaro (titoli) */
+  --color-gold-warm:    #c8a868;   /* Oro caldo (eyebrow) */
+  --color-gold-pale:    #e3d0a8;   /* Oro pallido (narrazione) */
+  --color-ivory:        #faf5e6;   /* Avorio (marmo bianco) */
+  --color-cream:        #c8b894;   /* Crema (corpo testo) */
+  --color-red-velvet:   #8B0000;   /* Rosso velluto (baldacchino) */
+  --color-mosaic-dark:  #080814;   /* Tessere nere mosaico */
+
+  /* --- Tipografia --- */
+  --font-serif: 'Georgia', 'Times New Roman', 'Cormorant Garamond', serif;
+  --font-display: 'Georgia', serif;
+
+  /* Scala tipografica (mobile-first, scala con clamp) */
+  --fs-eyebrow: 12px;
+  --fs-body:    16px;
+  --fs-lead:    clamp(15px, 1.6vw, 17px);
+  --fs-h3:      clamp(18px, 2vw, 20px);
+  --fs-h2:      clamp(28px, 4vw, 40px);
+  --fs-h1:      clamp(36px, 6vw, 48px);
+  --fs-hero:    clamp(44px, 8vw, 88px);
+
+  /* --- Spaziature --- */
+  --space-1: 6px;
+  --space-2: 12px;
+  --space-3: 18px;
+  --space-4: 24px;
+  --space-5: 36px;
+  --space-6: 52px;
+  --space-7: 80px;
+  --space-8: 120px;
+
+  /* --- Bordi e ombre --- */
+  --border-gold: 1.5px solid var(--color-gold);
+  --shadow-text-soft:
+    0 1px 3px rgba(0, 0, 0, 1),
+    0 2px 6px rgba(0, 0, 0, 1),
+    0 3px 16px rgba(0, 0, 0, 1),
+    0 0 30px rgba(0, 0, 0, 0.85);
+  --shadow-text-strong:
+    0 1px 3px rgba(0, 0, 0, 1),
+    0 2px 6px rgba(0, 0, 0, 1),
+    0 4px 20px rgba(0, 0, 0, 1),
+    0 0 50px rgba(0, 0, 0, 0.9),
+    0 0 35px rgba(212, 184, 122, 0.4);
+
+  /* --- Velocità transizioni --- */
+  --t-fast: 0.25s;
+  --t-base: 0.4s;
+  --t-slow: 1s;
+  --t-slower: 1.5s;
+
+  /* --- Letter spacing --- */
+  --ls-display: 4px;
+  --ls-hero: 10px;
+  --ls-eyebrow: 6px;
+  --ls-button: 3px;
+}
+
+/* Riduzione movimento per chi lo richiede */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

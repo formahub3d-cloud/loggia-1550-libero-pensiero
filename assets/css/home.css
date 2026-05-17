@@ -1,0 +1,384 @@
+/* ============================================================
+   LOGGIA 1550 — LIBERO PENSIERO
+   Stili della home page (esperienza scrollytelling 3D)
+   ============================================================ */
+
+/* === CANVAS 3D === */
+#canvas3d {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: block;
+}
+
+/* Vignettatura molto leggera ai bordi - non invade la scena */
+.vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center,
+    rgba(5, 10, 37, 0) 60%,
+    rgba(5, 10, 37, 0.15) 88%,
+    rgba(5, 10, 37, 0.32) 100%);
+}
+
+/* === BARRA DI PROGRESSO SCROLL === */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  z-index: 100;
+  transition: width 0.1s ease;
+  box-shadow: 0 0 10px var(--color-gold);
+}
+
+/* === SEZIONI NARRATIVE === */
+section.scene-section {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 4vw;
+  pointer-events: none;
+}
+
+section.scene-section.align-left  { align-items: flex-start; text-align: left; }
+section.scene-section.align-right { align-items: flex-end;   text-align: right; }
+section.scene-section.align-center{ align-items: center;     text-align: center; }
+
+.section-inner {
+  max-width: 460px;
+  pointer-events: auto;
+  position: relative;
+  padding: 38px 42px;
+}
+
+/* Velatura sfumata radiale dietro il testo */
+.section-inner::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 122%;
+  height: 128%;
+  z-index: -1;
+  background: radial-gradient(ellipse at center,
+    rgba(5, 9, 30, 0.62) 0%,
+    rgba(5, 9, 30, 0.45) 50%,
+    rgba(5, 9, 30, 0.18) 78%,
+    rgba(5, 9, 30, 0) 100%);
+  pointer-events: none;
+}
+
+#hero .section-inner {
+  max-width: 600px;
+}
+
+/* === TIPOGRAFIA HERO E SEZIONI === */
+.eyebrow {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--color-gold-warm);
+  margin-bottom: 22px;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--t-slow) ease, transform var(--t-slow) ease;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: normal;
+  letter-spacing: var(--ls-display);
+  color: var(--color-gold-light);
+  margin-bottom: 22px;
+  line-height: 1.18;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  text-shadow: var(--shadow-text-strong);
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); letter-spacing: 3px; }
+
+.narration {
+  font-size: var(--fs-lead);
+  font-style: italic;
+  color: var(--color-gold-pale);
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--t-slower) ease 0.2s, transform var(--t-slower) ease 0.2s;
+  text-shadow: var(--shadow-text-soft);
+}
+
+section.scene-section.visible .eyebrow,
+section.scene-section.visible h1,
+section.scene-section.visible h2,
+section.scene-section.visible .narration {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#hero h1 {
+  font-size: var(--fs-hero);
+  letter-spacing: var(--ls-hero);
+}
+
+#hero .subtitle {
+  font-size: 14px;
+  letter-spacing: 5px;
+  color: var(--color-gold-warm);
+  margin-top: 18px;
+  opacity: 0;
+  transition: opacity var(--t-slower) ease 0.4s;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+#hero.visible .subtitle {
+  opacity: 1;
+}
+
+/* === BOTTONI === */
+.btn {
+  display: inline-block;
+  background: rgba(212, 184, 122, 0.08);
+  color: var(--color-gold-light);
+  border: var(--border-gold);
+  padding: 15px 38px;
+  font-size: 13px;
+  font-family: var(--font-display);
+  letter-spacing: var(--ls-button);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--t-base) ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: rgba(212, 184, 122, 0.2);
+  box-shadow: 0 0 30px rgba(212, 184, 122, 0.5);
+  transform: translateY(-2px);
+  letter-spacing: 4px;
+  color: var(--color-gold-light);
+}
+
+.btn-primary {
+  border-width: 2px;
+  background: rgba(212, 184, 122, 0.12);
+}
+
+#hero .btn {
+  margin-top: 35px;
+}
+
+/* === CARD GRID (sezioni explore / works) === */
+.cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.card {
+  background: rgba(10, 16, 45, 0.55);
+  border: 1px solid rgba(212, 184, 122, 0.35);
+  padding: 22px 26px;
+  text-align: left;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all var(--t-base) ease;
+  color: inherit;
+  display: block;
+  text-decoration: none;
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: var(--color-gold);
+  background: rgba(212, 184, 122, 0.08);
+  transform: translateX(4px);
+}
+
+.card h3 {
+  font-size: var(--fs-h3);
+  font-weight: normal;
+  font-style: italic;
+  color: var(--color-gold-light);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 1);
+}
+
+.card p {
+  font-size: 14px;
+  color: var(--color-cream);
+  line-height: 1.65;
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 1);
+}
+
+.card-icon {
+  font-size: 22px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* === SCHERMATA DI CARICAMENTO === */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-bg-deep);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader__symbol {
+  font-size: 72px;
+  color: var(--color-gold);
+  text-shadow: 0 0 30px rgba(212, 184, 122, 0.6);
+  animation: pulse 2.4s ease-in-out infinite;
+  margin-bottom: 36px;
+}
+
+.loader__text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: var(--color-gold-warm);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.loader__bar {
+  width: 220px;
+  height: 2px;
+  background: rgba(212, 184, 122, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.loader__bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  animation: load-bar 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.06); }
+}
+
+@keyframes load-bar {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* === MENU FOOTER MINIMALE === */
+.site-footer {
+  position: relative;
+  z-index: 10;
+  padding: 60px 4vw 40px;
+  text-align: center;
+  background: linear-gradient(180deg, transparent, rgba(5, 9, 30, 0.85));
+  color: var(--color-gold-warm);
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.site-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 26px;
+  margin-bottom: 28px;
+}
+
+.site-footer__nav a {
+  color: var(--color-gold-warm);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 3px;
+  transition: color var(--t-fast) ease;
+}
+
+.site-footer__nav a:hover {
+  color: var(--color-gold);
+}
+
+.site-footer__copy {
+  opacity: 0.7;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+}
+
+.site-footer__motto {
+  font-style: italic;
+  margin-bottom: 14px;
+  color: var(--color-gold);
+  letter-spacing: 4px;
+}
+
+/* === MOBILE === */
+@media (max-width: 768px) {
+  section.scene-section {
+    padding: 80px 5vw;
+  }
+  .section-inner {
+    padding: 30px 24px;
+    max-width: 100%;
+  }
+  #hero .section-inner {
+    max-width: 100%;
+  }
+  .section-inner::before {
+    width: 110%;
+    height: 115%;
+  }
+  /* Su mobile tutto centrato per leggibilità */
+  section.scene-section.align-left,
+  section.scene-section.align-right {
+    align-items: center;
+    text-align: center;
+  }
+  .card {
+    padding: 18px 20px;
+  }
+  .loader__symbol { font-size: 56px; }
+  .loader__bar { width: 180px; }
+}
