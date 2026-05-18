@@ -3774,13 +3774,13 @@ zodiacPositions.forEach((pos, i) => {
   ctx.stroke();
   
   // Glifo astrologico grande e netto
-  ctx.font = 'bold 130px "Segoe UI Symbol", "Arial Unicode MS", sans-serif';
+  ctx.font = 'bold 130px "Apple Symbols", "Symbola", "Quivira", "DejaVu Sans", "Segoe UI Symbol", "Arial Unicode MS", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillStyle = '#e8cf94';
   ctx.shadowColor = '#d4b87a';
   ctx.shadowBlur = 20;
-  ctx.fillText(zodiacGlyphs[i].sym, 128, 138);
+  ctx.fillText(zodiacGlyphs[i].sym + '\uFE0E', 128, 138);  // VS-15 = text style (no emoji)
   
   // Nome del segno in piccolo sotto
   ctx.font = '300 22px Georgia';
