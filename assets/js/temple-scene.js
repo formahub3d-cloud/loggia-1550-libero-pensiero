@@ -2010,25 +2010,11 @@ const TOOLTIP_DATA = {
 function tagForTooltip(obj, key) {
   if (!obj) return;
   obj.userData.tooltipKey = key;
-  obj.traverse(child => { child.userData.tooltipKey = key; });
+  obj.traverse(function(child) { child.userData.tooltipKey = key; });
 }
-tagForTooltip(columnJ, 'columnJ');
-tagForTooltip(columnB, 'columnB');
-tagForTooltip(sacredAltarGroup, 'ara');
-tagForTooltip(throneGroup, 'trono');
-tagForTooltip(deltaGroup, 'delta');
-tagForTooltip(sun, 'sole');
-tagForTooltip(moon, 'luna');
-tagForTooltip(quadroDiLoggia, 'quadro');
-tagForTooltip(swordGroup, 'spada');
-tagForTooltip(venus, 'venus');
-tagForTooltip(hercules, 'hercules');
-tagForTooltip(cand1.group, 'candelabra');
-tagForTooltip(cand2.group, 'candelabra');
-tagForTooltip(cand3.group, 'candelabra');
-tagForTooltip(firstSurvAltar, 'firstSorv');
-tagForTooltip(secondSurvAltar, 'secondSorv');
-tagForTooltip(zodiacGroup, 'zodiac');
+// NOTE: le chiamate effettive di tagForTooltip sono RAGGRUPPATE in fondo al file
+// (applyTooltipTags) per evitare riferimenti a variabili dichiarate dopo (TDZ).
+// Rimossa (TDZ): spostata in applyTooltipTags()
 
 // === Crea DOM tooltip ===
 const tooltipEl = document.createElement('div');
@@ -4575,6 +4561,33 @@ function animate() {
   renderWithBloom();
   requestAnimationFrame(animate);
 }
+
+
+// === TOOLTIP TAGS — applicati DOPO che tutte le variabili sono inizializzate ===
+function applyTooltipTags() {
+  try {
+    if (typeof zodiacGroup      !== 'undefined') tagForTooltip(zodiacGroup, 'zodiac');
+    if (typeof columnJ          !== 'undefined') tagForTooltip(columnJ, 'columnJ');
+    if (typeof columnB          !== 'undefined') tagForTooltip(columnB, 'columnB');
+    if (typeof sacredAltarGroup !== 'undefined') tagForTooltip(sacredAltarGroup, 'ara');
+    if (typeof throneGroup      !== 'undefined') tagForTooltip(throneGroup, 'trono');
+    if (typeof deltaGroup       !== 'undefined') tagForTooltip(deltaGroup, 'delta');
+    if (typeof sun              !== 'undefined') tagForTooltip(sun, 'sole');
+    if (typeof moon             !== 'undefined') tagForTooltip(moon, 'luna');
+    if (typeof quadroDiLoggia   !== 'undefined') tagForTooltip(quadroDiLoggia, 'quadro');
+    if (typeof swordGroup       !== 'undefined') tagForTooltip(swordGroup, 'spada');
+    if (typeof venus            !== 'undefined') tagForTooltip(venus, 'venus');
+    if (typeof hercules         !== 'undefined') tagForTooltip(hercules, 'hercules');
+    if (typeof cand1            !== 'undefined' && cand1 && cand1.group) tagForTooltip(cand1.group, 'candelabra');
+    if (typeof cand2            !== 'undefined' && cand2 && cand2.group) tagForTooltip(cand2.group, 'candelabra');
+    if (typeof cand3            !== 'undefined' && cand3 && cand3.group) tagForTooltip(cand3.group, 'candelabra');
+    if (typeof firstSurvAltar   !== 'undefined') tagForTooltip(firstSurvAltar, 'firstSorv');
+    if (typeof secondSurvAltar  !== 'undefined') tagForTooltip(secondSurvAltar, 'secondSorv');
+  } catch (e) {
+    console.warn('[Temple] applyTooltipTags errore:', e.message);
+  }
+}
+applyTooltipTags();
 
 animate();
 updateScroll();
