@@ -252,6 +252,25 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="assets/js/temple-scene.js" defer></script>
 
+  <!-- Gestione del loader: si nasconde quando la scena 3D ha lanciato 'temple-ready' -->
+  <script>
+    (function() {
+      var loader = document.getElementById('loader');
+      if (!loader) return;
+      var hidden = false;
+      function hideLoader() {
+        if (hidden) return;
+        hidden = true;
+        // Piccolo delay per far percepire il fade
+        setTimeout(function() { loader.classList.add('hidden'); }, 250);
+      }
+      window.addEventListener('temple-ready', hideLoader);
+      // Fallback di sicurezza: se l'evento non arriva (errore), nascondi dopo 6s
+      setTimeout(hideLoader, 6000);
+    })();
+  </script>
+
+
   <!-- ===================================================================
        CONFIGURAZIONE LINK ESTERNI
        Inserisci qui i link reali (es. Quiz del Vero Massone).

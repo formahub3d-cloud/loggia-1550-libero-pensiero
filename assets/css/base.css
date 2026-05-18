@@ -594,23 +594,13 @@ body.explore-active .site-footer {
    PAGE POLISH — fade transitions, back-to-top, reveal animations
    ============================================================ */
 
-/* Stato iniziale: pagina invisibile finché page-fade-in non viene applicata */
-html.page-fade-init body {
-  opacity: 0;
-}
-html.page-fade-in body {
-  opacity: 1;
-  transition: opacity 0.5s ease-out;
-}
+/* Fade transitions di pagina — solo in fade-out, mai in fade-in
+   (per evitare di nascondere la pagina se il JS non parte) */
 html.page-fade-out body {
   opacity: 0;
   transition: opacity 0.28s ease-in;
 }
-
-/* Rispetta prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  html.page-fade-init body,
-  html.page-fade-in body,
   html.page-fade-out body {
     opacity: 1;
     transition: none;

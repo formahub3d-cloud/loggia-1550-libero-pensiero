@@ -6,6 +6,7 @@
    ============================================================ */
 (function() {
   'use strict';
+  try {
   const STORAGE_KEY = 'loggia1550_daynight_v1';
 
   // Aspetta che la scena 3D sia pronta. temple-scene.js (defer) completa
@@ -216,4 +217,5 @@
 
     console.log('[Temple D/N] Modalità giorno/notte pronta');
   }
+  } catch (e) { console.warn('[Temple D/N] Disabilitato:', e.message); }
 })();

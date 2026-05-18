@@ -10,14 +10,8 @@
   // 1) FADE-IN della pagina al caricamento
   // ============================================================
   function pageFadeIn() {
-    // Aggiunge una classe iniziale e la rimuove dopo un frame, così
-    // l'opacità viene transizionata via CSS.
-    document.documentElement.classList.add('page-fade-init');
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        document.documentElement.classList.add('page-fade-in');
-      });
-    });
+    // No-op: l'opacità iniziale del body è gestita dal CSS senza nascondere
+    // mai la pagina (per sicurezza). Restano solo i fade-out al cambio pagina.
   }
 
   // ============================================================
