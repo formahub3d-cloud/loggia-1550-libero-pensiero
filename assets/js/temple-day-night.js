@@ -57,17 +57,19 @@
       entrance:     1.5,  entranceCol: new THREE.Color(0xffeebb)
     };
     const DAY = {
-      clearColor:   new THREE.Color(0xb8d4e8),  // azzurro alba
-      fogColor:     new THREE.Color(0xd8e4f0),  // bianco-azzurro chiaro
-      fogDensity:   0.006,
-      exposure:     1.55,
-      ambient:      0.95, ambientCol:  new THREE.Color(0xb0c4d8),
-      hemi:         0.85, hemiSky:     new THREE.Color(0xcfdcee),  hemiGround: new THREE.Color(0x8a7858),
-      gold:         0.8,  goldCol:     new THREE.Color(0xfff2c8),
-      east:         1.6,  eastCol:     new THREE.Color(0xfff4c0),  // sole basso dall'Oriente
-      altar:        1.0,  altarCol:    new THREE.Color(0xfff0c0),
-      rim:          0.30, rimCol:      new THREE.Color(0xa0c4e0),
-      entrance:     2.4,  entranceCol: new THREE.Color(0xfff0d0)
+      // Crepuscolo dorato/azzurrino — più contenuto rispetto a un alba piena,
+      // così il bloom dei candelabri non viene lavato e il Tempio resta leggibile.
+      clearColor:   new THREE.Color(0x4a5a7a),  // azzurro grigio profondo
+      fogColor:     new THREE.Color(0x6a7894),  // azzurro grigio medio
+      fogDensity:   0.012,
+      exposure:     1.10,                       // più basso di notte (1.25) per compensare luci più alte
+      ambient:      0.75, ambientCol:  new THREE.Color(0x7888a0),
+      hemi:         0.55, hemiSky:     new THREE.Color(0x8a98b4),  hemiGround: new THREE.Color(0x4a3a20),
+      gold:         1.1,  goldCol:     new THREE.Color(0xf0d090),
+      east:         1.2,  eastCol:     new THREE.Color(0xffd890),  // sole basso dall'Oriente, più caldo
+      altar:        1.0,  altarCol:    new THREE.Color(0xffd089),
+      rim:          0.35, rimCol:      new THREE.Color(0x7090b8),
+      entrance:     1.2,  entranceCol: new THREE.Color(0xffe0a0)
     };
 
     // Risolve le luci percorrendo la scena (così funziona anche se le const

@@ -2085,6 +2085,12 @@ window.addEventListener('touchstart', function(e) {
 
 // Funzione chiamata ogni frame nel render loop
 function updateTooltipRaycast() {
+  // Tooltip attivo SOLO durante la modalità esplorazione libera,
+  // non durante lo scrolling narrativo.
+  if (typeof explore === 'undefined' || !explore.active) {
+    hideTooltip();
+    return;
+  }
   if (tooltipMouse.x < -1 || tooltipMouse.x > 1) {
     hideTooltip();
     return;
