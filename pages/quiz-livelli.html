@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050a25">
+  <title>I Quiz del Vero Massone — Loggia n. 1550</title>
+  <meta name="description" content="Le prove iniziatiche per ogni grado: Apprendista, Compagno d'Arte, Maestro, Maestro Venerabile. Metti alla prova la tua conoscenza dell'Arte Reale.">
+  <meta property="og:title" content="I Quiz del Vero Massone — Loggia n. 1550">
+  <meta property="og:description" content="Le prove iniziatiche per ogni grado dell'Arte Reale.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050a25'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-size='40' fill='%23d4b87a'%3E%E2%9A%9C%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/page.css">
+  <style>
+    .quiz-hero { text-align:center; padding:30px 0 10px; }
+    .quiz-hero__symbol { font-size:52px; color:#d4af37; filter:drop-shadow(0 0 18px rgba(212,175,55,.35)); margin-bottom:6px; }
+    .levels { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px; margin:36px 0; }
+    .level-card { position:relative; display:block; text-decoration:none; padding:28px 24px; border:1px solid rgba(212,175,55,.22);
+      border-radius:12px; background:rgba(8,14,40,.5); backdrop-filter:blur(6px); transition:transform .3s, border-color .3s, box-shadow .3s; }
+    .level-card.is-active:hover { transform:translateY(-3px); border-color:rgba(212,175,55,.6); box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    .level-card.is-soon { opacity:.6; cursor:not-allowed; }
+    .level-card__icon { font-size:30px; color:#d4af37; display:block; margin-bottom:12px; }
+    .level-card__grade { font-family:Georgia,serif; letter-spacing:.14em; text-transform:uppercase; color:#e8d8a0; font-size:13px; margin:0 0 6px; }
+    .level-card__title { font-family:Georgia,serif; color:#faf5e6; font-size:21px; font-weight:400; margin:0 0 10px; }
+    .level-card__body { color:#c8b894; font-size:14px; line-height:1.6; margin:0; }
+    .level-card__cta { display:inline-block; margin-top:16px; color:#e8cf94; letter-spacing:2px; font-size:13px; text-transform:uppercase; }
+    .level-badge { position:absolute; top:16px; right:16px; font-size:11px; letter-spacing:1px; text-transform:uppercase;
+      color:#c8a868; border:1px solid rgba(212,175,55,.4); border-radius:999px; padding:3px 10px; }
+    .back-temple { text-align:center; margin:10px 0 40px; }
+    .back-temple a { color:#c8a868; letter-spacing:2px; text-decoration:none; font-size:13px; }
+    .back-temple a:hover { color:#e8cf94; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+
+  <header class="page-header">
+    <a href="../index.html" class="page-header__logo">⚜ Loggia n. 1550 — Libero Pensiero</a>
+    <nav class="page-header__nav" aria-label="Navigazione principale">
+      <a href="chi-siamo.html">Chi Siamo</a>
+      <a href="quiz-livelli.html" aria-current="page">Quiz</a>
+      <a href="galleria.html">Galleria</a>
+      <a href="tavole.html">Tavole</a>
+      <a href="simboli.html">Simboli</a>
+      <a href="glossario.html">Glossario</a>
+      <a href="contatti.html">Contatti</a>
+      <a href="https://area.liberopensierobenevento.com" target="_blank" rel="noopener noreferrer">Area Riservata</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page-main">
+    <div class="quiz-hero">
+      <div class="quiz-hero__symbol" aria-hidden="true">⚜</div>
+      <div class="page-eyebrow">~ Le prove dell'Arte Reale ~</div>
+      <h1 class="page-title">I QUIZ DEL VERO MASSONE</h1>
+      <p class="page-lead">Ogni grado custodisce le proprie prove. Inizia dal cammino dell'Apprendista; gli altri si apriranno lungo la salita verso la Luce.</p>
+    </div>
+
+    <div class="levels">
+      <a class="level-card is-active" href="quiz.html" rel="noopener">
+        <span class="level-card__icon" aria-hidden="true">&#9650;</span>
+        <p class="level-card__grade">Primo Grado</p>
+        <h2 class="level-card__title">Quiz del Massone Apprendista</h2>
+        <p class="level-card__body">Ventidue prove iniziatiche sul Primo Grado Simbolico: simboli, strumenti, storia e misteri della soglia.</p>
+        <span class="level-card__cta">Affronta le prove &rarr;</span>
+      </a>
+
+      <div class="level-card is-soon" aria-disabled="true">
+        <span class="level-badge">In preparazione</span>
+        <span class="level-card__icon" aria-hidden="true">&#9633;</span>
+        <p class="level-card__grade">Secondo Grado</p>
+        <h2 class="level-card__title">Quiz del Massone Compagno d'Arte</h2>
+        <p class="level-card__body">Le prove del Compagno d'Arte: la pietra cubica, le cinque arti, il viaggio verso la conoscenza. Presto disponibile.</p>
+      </div>
+
+      <div class="level-card is-soon" aria-disabled="true">
+        <span class="level-badge">In preparazione</span>
+        <span class="level-card__icon" aria-hidden="true">&#10038;</span>
+        <p class="level-card__grade">Terzo Grado</p>
+        <h2 class="level-card__title">Quiz del Massone Maestro</h2>
+        <p class="level-card__body">Le prove del Maestro: la leggenda di Hiram, l'acacia, il mistero della Parola perduta. Presto disponibile.</p>
+      </div>
+
+      <div class="level-card is-soon" aria-disabled="true">
+        <span class="level-badge">In preparazione</span>
+        <span class="level-card__icon" aria-hidden="true">&#9651;</span>
+        <p class="level-card__grade">All'Oriente</p>
+        <h2 class="level-card__title">Quiz del Maestro Venerabile</h2>
+        <p class="level-card__body">Le prove di chi dirige i Lavori: il governo della Loggia, il rituale, la sapienza dell'Oriente. Presto disponibile.</p>
+      </div>
+    </div>
+
+    <div class="back-temple">
+      <a href="../index.html">&larr; Torna al Tempio</a>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <p>~ Loggia n. 1550 «Libero Pensiero» ~</p>
+    <p class="page-footer__small">All'Oriente di tutti i luoghi e di tutti i tempi · Anno della Vera Luce 6026</p>
+  </footer>
+
+  <script src="../assets/js/page-polish.js" defer></script>
+</body>
+</html>
