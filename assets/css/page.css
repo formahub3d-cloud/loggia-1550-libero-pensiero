@@ -33,6 +33,11 @@ body.page-inner {
   font-size: 16px;
   letter-spacing: 2px;
   color: var(--color-gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .page-header__nav {
