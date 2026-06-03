@@ -67,23 +67,41 @@
   <!-- Salto al contenuto principale (accessibilità) -->
   <a class="skip-link" href="#hero">Salta al contenuto</a>
 
-  <!-- Schermata di caricamento (la scena 3D è pesante) -->
+  <!-- Schermata di caricamento: solo il logo con animazione (nessun testo) -->
   <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Caricamento del Tempio">
     <div class="loader__inner">
-      <div class="loader__symbol" aria-hidden="true"><svg width="72" height="66" viewBox="0 0 40 36" aria-hidden="true"><polygon points="20,3 3,33 37,33" fill="none" stroke="#d4b87a" stroke-width="2.5" stroke-linejoin="round"/><text x="20" y="27" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#e8cf94">G</text></svg></div>
-      <div class="loader__title">LIBERO PENSIERO</div>
-      <div class="loader__subtitle">Loggia n. 1550</div>
-      <div class="loader__divider" aria-hidden="true"></div>
-      <div class="loader__quote" id="loader-quote">
-        <p class="loader__quote-text">Apertura dei Lavori</p>
-        <p class="loader__quote-source">~ Ordo Ab Chao ~</p>
+      <div class="loader__symbol" aria-hidden="true">
+        <svg width="104" height="94" viewBox="0 0 40 36" aria-hidden="true">
+          <polygon class="loader__tri" points="20,3 3,33 37,33" fill="none" stroke="#d4b87a" stroke-width="2.5" stroke-linejoin="round"/>
+          <text class="loader__g" x="20" y="27" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#e8cf94">G</text>
+        </svg>
       </div>
-      <div class="loader__bar" aria-hidden="true">
-        <div class="loader__bar-fill" id="loader-bar-fill"></div>
-      </div>
-      <div class="loader__status" id="loader-status">Apertura del Tempio...</div>
     </div>
   </div>
+  <style>
+    /* Loader minimale: solo il logo (triangolo con G), nessuna scritta. */
+    #loader .loader__title, #loader .loader__subtitle, #loader .loader__divider,
+    #loader .loader__quote, #loader .loader__bar, #loader .loader__status { display:none !important; }
+    #loader .loader__inner { display:flex; align-items:center; justify-content:center; }
+    #loader .loader__symbol { display:flex; align-items:center; justify-content:center; }
+    /* Respiro dorato continuo */
+    #loader .loader__symbol svg { animation: loaderBreath 2.6s ease-in-out infinite; transform-origin:center; }
+    /* Il triangolo si disegna all'avvio */
+    #loader .loader__tri { stroke-dasharray:120; stroke-dashoffset:120; animation: loaderDraw 1.6s ease forwards; }
+    /* La G appare in dissolvenza dopo il tratto */
+    #loader .loader__g { opacity:0; animation: loaderFadeG 0.9s ease 1.2s forwards; }
+    @keyframes loaderDraw { to { stroke-dashoffset:0; } }
+    @keyframes loaderFadeG { to { opacity:1; } }
+    @keyframes loaderBreath {
+      0%,100% { transform:scale(1);    filter:drop-shadow(0 0 8px rgba(212,184,122,.35)); }
+      50%     { transform:scale(1.06); filter:drop-shadow(0 0 16px rgba(212,184,122,.7)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #loader .loader__symbol svg, #loader .loader__tri, #loader .loader__g { animation:none !important; }
+      #loader .loader__tri { stroke-dashoffset:0; }
+      #loader .loader__g { opacity:1; }
+    }
+  </style>
 
   <!-- Barra di progresso scroll -->
   <div class="progress-bar" id="progress" aria-hidden="true"></div>
