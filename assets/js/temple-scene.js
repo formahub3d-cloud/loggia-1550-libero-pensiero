@@ -745,6 +745,34 @@ const acronymPlane = new THREE.Mesh(
 acronymPlane.position.set(0, 8.30, -27.0);
 deltaGroup.add(acronymPlane);
 
+// === Nome della Loggia e Oriente, sotto l'acronimo del Grande Architetto ===
+const orienteCanvas = document.createElement('canvas');
+orienteCanvas.width = 2560; orienteCanvas.height = 200;
+const orCtx = orienteCanvas.getContext('2d');
+orCtx.clearRect(0, 0, 2560, 200);
+orCtx.font = 'italic 600 64px "Cormorant Garamond", Georgia, serif';
+orCtx.textAlign = 'center';
+orCtx.textBaseline = 'middle';
+orCtx.letterSpacing = '3px';
+const orienteText = 'Loggia «Libero Pensiero» n. 1550 \u2014 all\u2019Oriente di Benevento';
+orCtx.shadowColor = '#ffe9a6';
+orCtx.shadowBlur = 22;
+orCtx.fillStyle = '#d4b87a';
+orCtx.fillText(orienteText, 1280, 105);
+orCtx.shadowBlur = 0;
+orCtx.fillStyle = '#f3e6b6';
+orCtx.globalAlpha = 0.4;
+orCtx.fillText(orienteText, 1279, 104);
+orCtx.globalAlpha = 1.0;
+const orienteTex = new THREE.CanvasTexture(orienteCanvas);
+orienteTex.anisotropy = 16;
+orienteTex.minFilter = THREE.LinearMipmapLinearFilter;
+orienteTex.magFilter = THREE.LinearFilter;
+const orienteMat = new THREE.MeshBasicMaterial({ map: orienteTex, transparent: true, side: THREE.DoubleSide, depthWrite: false });
+const orientePlane = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 0.50), orienteMat);
+orientePlane.position.set(0, 7.55, -27.0);
+deltaGroup.add(orientePlane);
+
 scene.add(deltaGroup);
 
 // === SOLE E LUNA TRASPARENTI ai lati del Delta ===
